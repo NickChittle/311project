@@ -13,5 +13,14 @@ public class Main {
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.toString());
     }
+    
+    //Temp creates test windows
+    BillInterface BI = new BillInterface();
+    
+    //Add item to bill
+	for(int i=0;i<10;i++)
+		BI.addMenuItem("Item: " + i);
+	//Removes item by index, handles out of bounds
+	BI.removeMenuItem(99);
   }
 }
