@@ -31,7 +31,7 @@ public class BillInterface extends JFrame
 		super("Bill Interface");
 		
 		//Border
-				Border defaultBorder = new BevelBorder(BevelBorder.LOWERED);
+    Border defaultBorder = new BevelBorder(BevelBorder.LOWERED);
 				
 		//Define Panels
 		billPanel = new JPanel();
