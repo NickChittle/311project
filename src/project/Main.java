@@ -1,4 +1,6 @@
-import database.DatabaseManager;
+package project;
+
+import project.database.DatabaseManager;
 import java.sql.SQLException;
 
 public class Main {
@@ -7,16 +9,16 @@ public class Main {
     DatabaseManager db;
     try {
       db = new DatabaseManager();
-      for (String item : db.getItems()) {
+      for (MenuItem item : db.getItems()) {
         System.out.println(item);
       }
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.toString());
     }
-    
+
     //Temp creates test windows
     BillInterface BI = new BillInterface();
-    
+
     //Add item to bill
 	for(int i=0;i<10;i++)
 		BI.addMenuItem("Item: " + i);

@@ -1,3 +1,5 @@
+package project;
+
 import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
@@ -23,24 +25,23 @@ import javax.swing.border.Border;
 public class BillInterface extends JFrame
 {
 	Dimension size = new Dimension(600,500);
-	JPanel billPanel; 
-	
-	
-	BillInterface()
+	JPanel billPanel;
+
+	public BillInterface()
 	{
 		super("Bill Interface");
-		
+
 		//Border
     Border defaultBorder = new BevelBorder(BevelBorder.LOWERED);
-				
+
 		//Define Panels
 		billPanel = new JPanel();
-		JPanel bottomPanel = new JPanel();				
+		JPanel bottomPanel = new JPanel();
 		JPanel foodPanel = new JPanel();
 		foodPanel.setBorder(defaultBorder);
 		foodPanel.add(new JLabel("Food Panel!"));
 
-		
+
 		//Prep BillPanel
 		GridBagLayout billPanelLayout = new GridBagLayout();
 		JScrollPane scrollingBillPanel = new JScrollPane(billPanel);
@@ -49,11 +50,11 @@ public class BillInterface extends JFrame
 
 		billPanel.setLayout(billPanelLayout);
 		billPanel.setBorder(defaultBorder);
-	
+
 		//Prep billInterface
 		GridBagLayout billInterfacePanel = new GridBagLayout();
 		this.setLayout(billInterfacePanel);
-		GridBagConstraints c=new GridBagConstraints();	
+		GridBagConstraints c=new GridBagConstraints();
 		c.weightx=1;
 		c.weighty=1;
 		c.fill = GridBagConstraints.BOTH;
@@ -67,24 +68,24 @@ public class BillInterface extends JFrame
 		c.gridy=1;
 		c.weighty =0.1;
 		this.add(bottomPanel,c);
-		
-		
+
+
 		this.pack();
-	    this.setSize(size);
+    this.setSize(size);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
 		System.out.println("End BillInterface");
 	}
-	
+
 	@Override
 	public Dimension size()
 	{
 		return new Dimension(0,0);
-		
 	}
+
 	public boolean addMenuItem(String name)
 	{
-		GridBagConstraints c=new GridBagConstraints();	
+		GridBagConstraints c=new GridBagConstraints();
 		c.gridwidth=0;
 		c.weightx=1;
 		c.weighty=1;
@@ -100,14 +101,14 @@ public class BillInterface extends JFrame
 	{
 		billPanel.remove(bmi);
 	}
-	
+
 	public boolean removeMenuItem(int index)
 	{
 		if (index < 0 ||  index > billPanel.getComponents().length)
 			return false;
-		
+
 		removeMenuItem((BillMenuItem) billPanel.getComponents()[index]);
 		return true;
 	}
-	
+
 }
