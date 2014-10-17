@@ -12,33 +12,38 @@ import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
-/**
- * Written by Chris Bennett for 60-311
- * Bill Menu Item used to show
- */
+import java.util.ArrayList;
 
-public class BillMenuItem extends JPanel
-{
+public class Category extends JPanel {
   //Size of the panel
   public static final int CONST_HEIGHT = 50;
   Dimension size = new Dimension(200,CONST_HEIGHT);
 
-  MenuItem item;
-  int quantity;
+  private String categoryName;
+  private ArrayList<MenuItem> items;
 
-  BillMenuItem(MenuItem item)
-  {
-    this.item = item;
-    this.quantity = 1;
+  public Category(String categoryName) {
+    this.categoryName = categoryName;
+    this.items = new ArrayList<MenuItem>();
+    initLayout();
+  }
 
-    JLabel JLbl_itemName = new JLabel(getName());
-    JLabel JLbl_price = new JLabel("$" + getPrice());
-    GridLayout gridLayout = new GridLayout(0,2);
+  public Category(String categoryName, ArrayList<MenuItem> items) {
+    this.categoryName = categoryName;
+    this.items = items;
+    initLayout();
+  }
+
+  public void addMenuItem(MenuItem item) {
+    this.items.add(item);
+  }
+
+  private void initLayout() {
+    GridLayout gridLayout = new GridLayout(0,1);
     Border menuItemBorder = new BevelBorder(BevelBorder.RAISED);
 
     this.setBorder(menuItemBorder);
-    this.add(JLbl_itemName);
-    this.add(JLbl_price);
+    this.add(new JLabel(getName()));
     this.setLayout(gridLayout);
     this.setPreferredSize(size);
     this.setSize(size);
@@ -47,7 +52,8 @@ public class BillMenuItem extends JPanel
     this.addMouseListener(new MouseListener() {
       @Override
       public void mouseClicked(MouseEvent e) {
-        System.out.println("You clicked on "+ ((BillMenuItem) e.getComponent()));
+        // Make this expand the category.
+        System.out.println("You clicked on " + ((Category) e.getComponent()));
       }
 
       @Override
@@ -72,19 +78,12 @@ public class BillMenuItem extends JPanel
     }); // addMouseListener
   }
 
-  public double getPrice()
-  {
-    return item.getPrice() * quantity;
-  }
-
-  public String getName()
-  {
-    return item.getName();
+  public String getName() {
+    return this.categoryName;
   }
 
   @Override
-  public String toString()
-  {
+  public String toString() {
     return "Name: " + getName();
   }
 }

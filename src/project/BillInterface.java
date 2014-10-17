@@ -21,11 +21,10 @@ import javax.swing.JScrollPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
-
-public class BillInterface extends JFrame
-{
+public class BillInterface extends JFrame {
 	Dimension size = new Dimension(600,500);
 	JPanel billPanel;
+  JPanel foodPanel;
 
 	public BillInterface()
 	{
@@ -37,10 +36,10 @@ public class BillInterface extends JFrame
 		//Define Panels
 		billPanel = new JPanel();
 		JPanel bottomPanel = new JPanel();
-		JPanel foodPanel = new JPanel();
+		foodPanel = new JPanel();
 		foodPanel.setBorder(defaultBorder);
+    foodPanel.setLayout(new GridLayout(0, 1));
 		foodPanel.add(new JLabel("Food Panel!"));
-
 
 		//Prep BillPanel
 		GridBagLayout billPanelLayout = new GridBagLayout();
@@ -69,7 +68,6 @@ public class BillInterface extends JFrame
 		c.weighty =0.1;
 		this.add(bottomPanel,c);
 
-
 		this.pack();
     this.setSize(size);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -83,16 +81,28 @@ public class BillInterface extends JFrame
 		return new Dimension(0,0);
 	}
 
-	public boolean addMenuItem(String name)
-	{
-		GridBagConstraints c=new GridBagConstraints();
-		c.gridwidth=0;
-		c.weightx=1;
-		c.weighty=1;
+  public boolean addCategory(Category category) {
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridwidth = 0;
+		c.weightx = 1;
+		c.weighty = 1;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.anchor = GridBagConstraints.NORTH;
-		BillMenuItem bmi = new BillMenuItem(name);
-		c.ipady=bmi.getPreferredSize().height;
+		c.ipady = category.getPreferredSize().height;
+		foodPanel.add(category,c);
+		return true;
+  }
+
+	public boolean addMenuItem(MenuItem item)
+	{
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridwidth = 0;
+		c.weightx = 1;
+		c.weighty = 1;
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.anchor = GridBagConstraints.NORTH;
+		BillMenuItem bmi = new BillMenuItem(item);
+		c.ipady = bmi.getPreferredSize().height;
 		billPanel.add(bmi,c);
 		return true;
 	}
@@ -110,5 +120,4 @@ public class BillInterface extends JFrame
 		removeMenuItem((BillMenuItem) billPanel.getComponents()[index]);
 		return true;
 	}
-
 }

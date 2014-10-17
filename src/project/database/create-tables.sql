@@ -9,7 +9,7 @@ CREATE TABLE ITEMS
   PRIMARY KEY(ID)
 );
 
-INSERT INTO ITEMS VALUES (DEFAULT, 'Pizza', 10.99, 'It\'s Pretty Good', 'entree');
-INSERT INTO ITEMS VALUES (DEFAULT, 'Burger', 9.99, 'It\'s Really Good', 'entree');
-INSERT INTO ITEMS VALUES (DEFAULT, 'Brownie', 5.99, 'It\'s So Good', 'dessert');
-INSERT INTO ITEMS VALUES (DEFAULT, 'Garlic Bread With Cheese', 5.99, 'It\'s the Best', 'appetizer');
+INSERT INTO ITEMS VALUES (DEFAULT, 'Pizza', 10.99, 'It\'s Pretty Good', 'Entree');
+INSERT INTO ITEMS VALUES (DEFAULT, 'Burger', 9.99, 'It\'s Really Good', 'Entree');
+INSERT INTO ITEMS VALUES (DEFAULT, 'Brownie', 5.99, 'It\'s So Good', 'Dessert');
+INSERT INTO ITEMS VALUES (DEFAULT, 'Garlic Bread With Cheese', 5.99, 'It\'s the Best', 'Appetizer');

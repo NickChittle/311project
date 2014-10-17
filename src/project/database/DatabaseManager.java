@@ -12,6 +12,8 @@ import java.util.List;
 import project.MenuItem;
 
 public class DatabaseManager {
+  public static final boolean IS_TEST_DB = false;
+
   private static final String URL = "jdbc:mysql://localhost:3306/311project";
   private static final String USER = "java";
   private static final String PASSWORD = "311projectpassword";
@@ -23,6 +25,10 @@ public class DatabaseManager {
   }
 
   public List<MenuItem> getItems() {
+    if (IS_TEST_DB) {
+      return getTestItems();
+    }
+
     String query = "SELECT NAME, PRICE, DESCRIPTION, CATEGORY FROM ITEMS";
     List<MenuItem> items = new ArrayList<MenuItem>();
     try {
@@ -39,6 +45,16 @@ public class DatabaseManager {
       System.out.println("SQLException: " + e.toString());
     } finally {
     }
+    return items;
+  }
+
+  public List<MenuItem> getTestItems() {
+    System.out.println("Reading fake data");
+    List<MenuItem> items = new ArrayList<MenuItem>();
+    items.add(new MenuItem("Pizza", 10.99, "It\'s Pretty Good", "Entree"));
+    items.add(new MenuItem("Burger", 9.99, "It\'s Really Good", "Entree"));
+    items.add(new MenuItem("Brownie", 5.99, "It\'s So Good", "Dessert"));
+    items.add(new MenuItem("Garlic Bread With Cheese", 5.99, "It\'s the Best", "Appetizer"));
     return items;
   }
 }
