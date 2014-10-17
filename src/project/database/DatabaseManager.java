@@ -12,7 +12,7 @@ import java.util.List;
 import project.MenuItem;
 
 public class DatabaseManager {
-  public static final boolean IS_TEST_DB = false;
+  private static boolean IS_TEST_DB = false;
 
   private static final String URL = "jdbc:mysql://localhost:3306/311project";
   private static final String USER = "java";
@@ -21,7 +21,13 @@ public class DatabaseManager {
   private Connection conn;
 
   public DatabaseManager() throws SQLException {
-    conn = DriverManager.getConnection(URL, USER, PASSWORD);
+    try {
+      conn = DriverManager.getConnection(URL, USER, PASSWORD);
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.toString());
+      System.out.println("Reading Fake Data");
+      IS_TEST_DB = true;
+    }
   }
 
   public List<MenuItem> getItems() {
@@ -49,7 +55,7 @@ public class DatabaseManager {
   }
 
   public List<MenuItem> getTestItems() {
-    System.out.println("Reading fake data");
+    System.out.println("Reading Fake Data");
     List<MenuItem> items = new ArrayList<MenuItem>();
     items.add(new MenuItem("Pizza", 10.99, "It\'s Pretty Good", "Entree"));
     items.add(new MenuItem("Burger", 9.99, "It\'s Really Good", "Entree"));
