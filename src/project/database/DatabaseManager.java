@@ -20,7 +20,7 @@ public class DatabaseManager {
 
   private Connection conn;
 
-  public DatabaseManager() throws SQLException {
+  public DatabaseManager() {
     try {
       conn = DriverManager.getConnection(URL, USER, PASSWORD);
     } catch (SQLException e) {

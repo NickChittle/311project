@@ -10,16 +10,12 @@ import project.database.DatabaseManager;
 public class Main {
   public static void main(String[] args) {
     System.out.println("Hello World");
-    DatabaseManager db;
     ArrayList<MenuItem> menuItems = new ArrayList<MenuItem>();;
-    try {
-      db = new DatabaseManager();
-      menuItems.addAll(db.getItems());
-      for (MenuItem item : menuItems) {
-        System.out.println(item);
-      }
-    } catch (SQLException e) {
-      System.out.println("SQLException: " + e.toString());
+
+    DatabaseManager db = new DatabaseManager();
+    menuItems.addAll(db.getItems());
+    for (MenuItem item : menuItems) {
+      System.out.println(item);
     }
 
     Map<String, Category> categorizedMenuItems = new HashMap<String, Category>();
