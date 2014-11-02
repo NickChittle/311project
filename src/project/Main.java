@@ -33,9 +33,15 @@ public class Main {
       BI.addCategory(c);
     }
 
-    // Add item to bill
-    for (MenuItem item : menuItems) {
-      BI.addMenuItem(item);
+    boolean noTaxTest = false;
+    if (noTaxTest) {
+      MenuItem testCheapItemForNoTax = new MenuItem("Cheap Item", 2.99, "Really Cheap", "Appetizer");
+      BI.addMenuItem(testCheapItemForNoTax);
+    } else {
+      // Add item to bill
+      for (MenuItem item : menuItems) {
+        BI.addMenuItem(item);
+      }
     }
   }
 }

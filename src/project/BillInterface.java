@@ -22,9 +22,11 @@ import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 public class BillInterface extends JFrame {
-	Dimension size = new Dimension(600,500);
-	JPanel billPanel;
-  JPanel foodPanel;
+	private Dimension size = new Dimension(600,500);
+	private JPanel billPanel;
+  private JPanel foodPanel;
+
+  private TaxManager taxManager;
 
 	public BillInterface()
 	{
@@ -35,7 +37,14 @@ public class BillInterface extends JFrame {
 
 		//Define Panels
 		billPanel = new JPanel();
-		JPanel bottomPanel = new JPanel();
+		JPanel taxPanel = new JPanel();
+
+		taxPanel.setBorder(defaultBorder);
+    taxPanel.setLayout(new GridLayout());
+    JLabel taxLabel = new JLabel("Tax Label");  // Managed by the TaxManager object.
+    taxPanel.add(taxLabel);
+    taxManager = new TaxManager(taxLabel);
+
 		foodPanel = new JPanel();
 		foodPanel.setBorder(defaultBorder);
     foodPanel.setLayout(new GridLayout(0, 1));
@@ -66,7 +75,7 @@ public class BillInterface extends JFrame {
 		c.gridx=0;
 		c.gridy=1;
 		c.weighty =0.1;
-		this.add(bottomPanel,c);
+		this.add(taxPanel,c);
 
 		this.pack();
     this.setSize(size);
@@ -101,8 +110,12 @@ public class BillInterface extends JFrame {
 		c.weighty = 1;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.anchor = GridBagConstraints.NORTH;
+
 		BillMenuItem bmi = new BillMenuItem(item);
+    taxManager.addBillMenuItem(bmi);
+
 		c.ipady = bmi.getPreferredSize().height;
+
 		billPanel.add(bmi,c);
 		return true;
 	}

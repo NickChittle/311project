@@ -6,6 +6,7 @@ import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,17 +18,16 @@ import javax.swing.border.Border;
  * Bill Menu Item used to show
  */
 
-public class BillMenuItem extends JPanel
-{
+public class BillMenuItem extends JPanel implements Subject {
   //Size of the panel
   public static final int CONST_HEIGHT = 50;
-  Dimension size = new Dimension(200,CONST_HEIGHT);
+  private Dimension size = new Dimension(200,CONST_HEIGHT);
 
-  MenuItem item;
-  int quantity;
+  private MenuItem item;
+  private int quantity;
+  private ArrayList<Observer> observers = new ArrayList<Observer>();
 
-  BillMenuItem(MenuItem item)
-  {
+  BillMenuItem(MenuItem item) {
     this.item = item;
     this.quantity = 1;
 
@@ -47,6 +47,7 @@ public class BillMenuItem extends JPanel
     this.addMouseListener(new MouseListener() {
       @Override
       public void mouseClicked(MouseEvent e) {
+        publish();
         System.out.println("You clicked on "+ ((BillMenuItem) e.getComponent()));
       }
 
@@ -70,6 +71,16 @@ public class BillMenuItem extends JPanel
         // TODO Auto-generated method stub
       }
     }); // addMouseListener
+  }
+
+  public void subscribe(Observer o) {
+    this.observers.add(o);
+  }
+
+  public void publish() {
+    for (Observer o : this.observers) {
+      o.update();
+    }
   }
 
   public double getPrice()
