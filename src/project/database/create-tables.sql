@@ -19,7 +19,7 @@ INSERT INTO ITEMS VALUES (DEFAULT, 'Double 4oz. Patty', 5.65, 'description', 'Or
 INSERT INTO ITEMS VALUES (DEFAULT, 'Cheeseburger', 4.69, 'description', 'Original Hamburgers');
 INSERT INTO ITEMS VALUES (DEFAULT, 'Double Cheeseburger', 6.20, 'description', 'Original Hamburgers');
 INSERT INTO ITEMS VALUES (DEFAULT, 'Bacon Cheeseburger', 5,25, 'description', 'Original Hamburgers');
-INSERT INTO ITEMS VALUES (DEFAULT, 'Double Bacon Cheese, 6.85, 'description', 'Original Hamburgers');
+INSERT INTO ITEMS VALUES (DEFAULT, 'Double Bacon Cheese', 6.85, 'description', 'Original Hamburgers');
 
 INSERT INTO ITEMS VALUES (DEFAULT, 'Primetime Single', 5.25, 'Fried Egg, Fries, Cheese, Classic Sauce, Lettuce, Tomato, Onion', 'Specialty Hamburgers');
 INSERT INTO ITEMS VALUES (DEFAULT, 'Primetime Double', 6.65, 'Fried Egg, Fries, Cheese, Classic Sauce, Lettuce, Tomato, Onion', 'Specialty Hamburgers');
