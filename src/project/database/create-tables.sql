@@ -13,3 +13,16 @@ INSERT INTO ITEMS VALUES (DEFAULT, 'Pizza', 10.99, 'It\'s Pretty Good', 'Entree'
 INSERT INTO ITEMS VALUES (DEFAULT, 'Burger', 9.99, 'It\'s Really Good', 'Entree');
 INSERT INTO ITEMS VALUES (DEFAULT, 'Brownie', 5.99, 'It\'s So Good', 'Dessert');
 INSERT INTO ITEMS VALUES (DEFAULT, 'Garlic Bread With Cheese', 5.99, 'It\'s the Best', 'Appetizer');
+
+CREATE TABLE BILLS
+(
+  ID INT NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY(ID)
+);
+
+CREATE TABLE BILLS_ITEMS
+(
+  ID INT NOT NULL REFERENCES BILLS(ID),
+  ITEM_ID INT,
+  QUANTITY INT
+);
