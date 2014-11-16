@@ -51,25 +51,25 @@ public class BillMenuItem extends JPanel implements Subject {
         System.out.println("You clicked on "+ ((BillMenuItem) e.getComponent()));
       }
 
-      @Override
-      public void mouseEntered(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-      }
+    @Override
+    public void mouseEntered(MouseEvent arg0) {
+      // TODO Auto-generated method stub
+    }
 
-      @Override
-      public void mouseExited(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-      }
+    @Override
+    public void mouseExited(MouseEvent arg0) {
+      // TODO Auto-generated method stub
+    }
 
-      @Override
-      public void mousePressed(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-      }
+    @Override
+    public void mousePressed(MouseEvent arg0) {
+      // TODO Auto-generated method stub
+    }
 
-      @Override
-      public void mouseReleased(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-      }
+    @Override
+    public void mouseReleased(MouseEvent arg0) {
+      // TODO Auto-generated method stub
+    }
     }); // addMouseListener
   }
 
@@ -83,19 +83,16 @@ public class BillMenuItem extends JPanel implements Subject {
     }
   }
 
-  public double getPrice()
-  {
+  public double getPrice() {
     return item.getPrice() * quantity;
   }
 
-  public String getName()
-  {
+  public String getName() {
     return item.getName();
   }
 
   @Override
-  public String toString()
-  {
+  public String toString() {
     return "Name: " + getName();
   }
 }

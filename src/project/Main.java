@@ -27,21 +27,23 @@ public class Main {
     }
 
     // Temp creates test windows
-    BillInterface BI = new BillInterface();
+    //BillInterface BI = new BillInterface();
 
-    for (Category c : categorizedMenuItems.values()) {
-      BI.addCategory(c);
-    }
+    //for (Category c : categorizedMenuItems.values()) {
+    //BI.addCategory(c);
+    //}
 
-    boolean noTaxTest = false;
-    if (noTaxTest) {
-      MenuItem testCheapItemForNoTax = new MenuItem("Cheap Item", 2.99, "Really Cheap", "Appetizer");
-      BI.addMenuItem(testCheapItemForNoTax);
-    } else {
-      // Add item to bill
-      for (MenuItem item : menuItems) {
-        BI.addMenuItem(item);
-      }
-    }
+    //boolean noTaxTest = false;
+    //if (noTaxTest) {
+    //MenuItem testCheapItemForNoTax = new MenuItem("Cheap Item", 2.99, "Really Cheap", "Appetizer");
+    //BI.addMenuItem(testCheapItemForNoTax);
+    //} else {
+    //// Add item to bill
+    //for (MenuItem item : menuItems) {
+    //BI.addMenuItem(item);
+    //}
+    //}
+
+    MainFrame mainFrame = new MainFrame();
   }
 }

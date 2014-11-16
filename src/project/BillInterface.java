@@ -21,116 +21,99 @@ import javax.swing.JScrollPane;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
-public class BillInterface extends JFrame {
-	private Dimension size = new Dimension(600,500);
-	private JPanel billPanel;
+public class BillInterface extends JPanel {
+  private Dimension size = new Dimension(600,500);
+  private JPanel billPanel;
   private JPanel foodPanel;
 
   private TaxManager taxManager;
 
-	public BillInterface()
-	{
-		super("Bill Interface");
+  public BillInterface() {
 
-		//Border
+    //Border
     Border defaultBorder = new BevelBorder(BevelBorder.LOWERED);
 
-		//Define Panels
-		billPanel = new JPanel();
-		JPanel taxPanel = new JPanel();
+    //Define Panels
+    billPanel = new JPanel();
+    JPanel taxPanel = new JPanel();
 
-		taxPanel.setBorder(defaultBorder);
+    taxPanel.setBorder(defaultBorder);
     taxPanel.setLayout(new GridLayout());
     JLabel taxLabel = new JLabel("Tax Label");  // Managed by the TaxManager object.
     taxPanel.add(taxLabel);
     taxManager = new TaxManager(taxLabel);
 
-		foodPanel = new JPanel();
-		foodPanel.setBorder(defaultBorder);
+    foodPanel = new JPanel();
+    foodPanel.setBorder(defaultBorder);
     foodPanel.setLayout(new GridLayout(0, 1));
-		foodPanel.add(new JLabel("Food Panel!"));
+    foodPanel.add(new JLabel("Food Panel!"));
 
-		//Prep BillPanel
-		GridBagLayout billPanelLayout = new GridBagLayout();
-		JScrollPane scrollingBillPanel = new JScrollPane(billPanel);
-		//scrollingBillPanel.setVerticalScrollBar(new JScrollBar());
-		scrollingBillPanel.setWheelScrollingEnabled(true);
+    //Prep BillPanel
+    GridBagLayout billPanelLayout = new GridBagLayout();
+    JScrollPane scrollingBillPanel = new JScrollPane(billPanel);
+    //scrollingBillPanel.setVerticalScrollBar(new JScrollBar());
+    scrollingBillPanel.setWheelScrollingEnabled(true);
 
-		billPanel.setLayout(billPanelLayout);
-		billPanel.setBorder(defaultBorder);
+    billPanel.setLayout(billPanelLayout);
+    billPanel.setBorder(defaultBorder);
 
-		//Prep billInterface
-		GridBagLayout billInterfacePanel = new GridBagLayout();
-		this.setLayout(billInterfacePanel);
-		GridBagConstraints c=new GridBagConstraints();
-		c.weightx=1;
-		c.weighty=1;
-		c.fill = GridBagConstraints.BOTH;
-		c.gridx=0;
-		c.gridy=0;
-		this.add(foodPanel,c);
-		c.gridx=1;
-		c.gridy=0;
-		this.add(scrollingBillPanel,c);
-		c.gridx=0;
-		c.gridy=1;
-		c.weighty =0.1;
-		this.add(taxPanel,c);
-
-		this.pack();
-    this.setSize(size);
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		this.setVisible(true);
-		System.out.println("End BillInterface");
-	}
-
-	@Override
-	public Dimension size()
-	{
-		return new Dimension(0,0);
-	}
-
-  public boolean addCategory(Category category) {
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridwidth = 0;
-		c.weightx = 1;
-		c.weighty = 1;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.anchor = GridBagConstraints.NORTH;
-		c.ipady = category.getPreferredSize().height;
-		foodPanel.add(category,c);
-		return true;
+    //Prep billInterface
+    GridBagLayout billInterfacePanel = new GridBagLayout();
+    this.setLayout(billInterfacePanel);
+    GridBagConstraints c=new GridBagConstraints();
+    c.weightx=1;
+    c.weighty=1;
+    c.fill = GridBagConstraints.BOTH;
+    c.gridx=0;
+    c.gridy=0;
+    this.add(foodPanel,c);
+    c.gridx=1;
+    c.gridy=0;
+    this.add(scrollingBillPanel,c);
+    c.gridx=0;
+    c.gridy=1;
+    c.weighty =0.1;
+    this.add(taxPanel,c);
   }
 
-	public boolean addMenuItem(MenuItem item)
-	{
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridwidth = 0;
-		c.weightx = 1;
-		c.weighty = 1;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.anchor = GridBagConstraints.NORTH;
+  public boolean addCategory(Category category) {
+    GridBagConstraints c = new GridBagConstraints();
+    c.gridwidth = 0;
+    c.weightx = 1;
+    c.weighty = 1;
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.anchor = GridBagConstraints.NORTH;
+    c.ipady = category.getPreferredSize().height;
+    foodPanel.add(category,c);
+    return true;
+  }
 
-		BillMenuItem bmi = new BillMenuItem(item);
+  public boolean addMenuItem(MenuItem item) {
+    GridBagConstraints c = new GridBagConstraints();
+    c.gridwidth = 0;
+    c.weightx = 1;
+    c.weighty = 1;
+    c.fill = GridBagConstraints.HORIZONTAL;
+    c.anchor = GridBagConstraints.NORTH;
+
+    BillMenuItem bmi = new BillMenuItem(item);
     taxManager.addBillMenuItem(bmi);
 
-		c.ipady = bmi.getPreferredSize().height;
+    c.ipady = bmi.getPreferredSize().height;
 
-		billPanel.add(bmi,c);
-		return true;
-	}
+    billPanel.add(bmi,c);
+    return true;
+  }
 
-	private void removeMenuItem(BillMenuItem bmi)
-	{
-		billPanel.remove(bmi);
-	}
+  private void removeMenuItem(BillMenuItem bmi) {
+    billPanel.remove(bmi);
+  }
 
-	public boolean removeMenuItem(int index)
-	{
-		if (index < 0 ||  index > billPanel.getComponents().length)
-			return false;
+  public boolean removeMenuItem(int index) {
+    if (index < 0 ||  index > billPanel.getComponents().length)
+      return false;
 
-		removeMenuItem((BillMenuItem) billPanel.getComponents()[index]);
-		return true;
-	}
+    removeMenuItem((BillMenuItem) billPanel.getComponents()[index]);
+    return true;
+  }
 }
