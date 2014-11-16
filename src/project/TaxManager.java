@@ -1,20 +1,38 @@
 package project;
 
+import java.util.List;
 import java.util.ArrayList;
 
+import java.awt.GridLayout;
+
 import javax.swing.JLabel;
+import javax.swing.border.BevelBorder;
+import javax.swing.border.Border;
 
 public class TaxManager implements Observer {
-  private JLabel label;
-  private ArrayList<BillMenuItem> menuItems;
+  private JLabel taxLabel;
+  private Model model;
+  // Swings components can only have one parent, so we have multiple versions of them.
+  private ArrayList<JLabel> taxLabels;
 
-  public TaxManager(JLabel l) {
-    this.label = l;
-    this.menuItems = new ArrayList<BillMenuItem>();
+  public TaxManager(Model model) {
+    this.model = model;
+    taxLabels = new ArrayList<JLabel>();
+    updateTaxLabel();
+  }
+
+  public JLabel getTaxLabel() {
+    JLabel label = new JLabel("Tax Label");
+    taxLabels.add(label);
+    updateTaxLabel();
+    return label;
+  }
+
+  public List<BillMenuItem> getBillMenuItems() {
+    return model.getBillMenuItems();
   }
 
   public void addBillMenuItem(BillMenuItem i) {
-    menuItems.add(i);
     i.subscribe(this);
     updateTaxLabel();
   }
@@ -25,12 +43,14 @@ public class TaxManager implements Observer {
     double total = subtotal + tax;
 
     String text = String.format("Subtotal: $%.2f, Tax: $%.2f, Total $%.2f", subtotal, tax, total);
-    label.setText(text);
+    for (JLabel label : taxLabels) {
+      label.setText(text);
+    }
   }
 
   public double getSubtotal() {
     double subtotal = 0;
-    for (BillMenuItem i : menuItems) {
+    for (BillMenuItem i : getBillMenuItems()) {
       subtotal += i.getPrice();
     }
     return subtotal;

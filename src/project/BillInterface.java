@@ -13,6 +13,7 @@ import java.awt.event.MouseListener;
 import java.util.Vector;
 
 import javax.swing.BoxLayout;
+import java.awt.Component;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -26,24 +27,24 @@ public class BillInterface extends JPanel {
   private JPanel billPanel;
   private JPanel foodPanel;
 
-  private TaxManager taxManager;
-
+  private Model model;
   private Menu menu;
 
-  public BillInterface() {
+  public BillInterface(Model model) {
+    this.model = model;
 
     //Border
     Border defaultBorder = new BevelBorder(BevelBorder.LOWERED);
 
     //Define Panels
-    billPanel = new JPanel();
     JPanel taxPanel = new JPanel();
-
     taxPanel.setBorder(defaultBorder);
     taxPanel.setLayout(new GridLayout());
-    JLabel taxLabel = new JLabel("Tax Label");  // Managed by the TaxManager object.
+    JLabel taxLabel = model.getTaxManager().getTaxLabel();  // Managed by the TaxManager object.
     taxPanel.add(taxLabel);
-    taxManager = new TaxManager(taxLabel);
+
+    taxPanel.setBorder(defaultBorder);
+    billPanel = new JPanel();
 
     foodPanel = new JPanel();
     foodPanel.setBorder(defaultBorder);
@@ -62,20 +63,21 @@ public class BillInterface extends JPanel {
     //Prep billInterface
     GridBagLayout billInterfacePanel = new GridBagLayout();
     this.setLayout(billInterfacePanel);
-    GridBagConstraints c=new GridBagConstraints();
-    c.weightx=1;
-    c.weighty=1;
+    GridBagConstraints c = new GridBagConstraints();
+    c.weightx = 1;
+    c.weighty = 1;
     c.fill = GridBagConstraints.BOTH;
-    c.gridx=0;
-    c.gridy=0;
-    this.add(foodPanel,c);
-    c.gridx=1;
-    c.gridy=0;
-    this.add(scrollingBillPanel,c);
-    c.gridx=0;
-    c.gridy=1;
-    c.weighty =0.1;
-    this.add(taxPanel,c);
+    c.gridx = 0;
+    c.gridy = 0;
+    this.add(foodPanel, c);
+    c.gridx = 1;
+    c.gridy = 0;
+    this.add(scrollingBillPanel, c);
+    c.gridx = 0;
+    c.gridy = 1;
+    c.weighty = 0.1;
+
+    this.add(taxPanel, c);
   }
 
   public boolean addCategory(Category category) {
@@ -99,7 +101,7 @@ public class BillInterface extends JPanel {
     c.anchor = GridBagConstraints.NORTH;
 
     BillMenuItem bmi = new BillMenuItem(item);
-    taxManager.addBillMenuItem(bmi);
+    model.addBillMenuItem(bmi);
 
     c.ipady = bmi.getPreferredSize().height;
 

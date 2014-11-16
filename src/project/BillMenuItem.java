@@ -83,8 +83,16 @@ public class BillMenuItem extends JPanel implements Subject {
     }
   }
 
+  public int getQuantity() {
+    return quantity;
+  }
+
   public double getPrice() {
     return item.getPrice() * quantity;
+  }
+
+  public double getPriceForOne() {
+    return item.getPrice();
   }
 
   public String getName() {
