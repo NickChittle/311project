@@ -10,10 +10,11 @@ import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import java.util.Vector;
 
-import javax.swing.BoxLayout;
-import java.awt.Component;
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -29,9 +30,11 @@ public class BillInterface extends JPanel {
 
   private Model model;
   private Menu menu;
+  private MainFrame mainFrame;
 
-  public BillInterface(Model model) {
+  public BillInterface(Model model, MainFrame mainFrame) {
     this.model = model;
+    this.mainFrame = mainFrame;
 
     //Border
     Border defaultBorder = new BevelBorder(BevelBorder.LOWERED);
@@ -62,7 +65,7 @@ public class BillInterface extends JPanel {
 
     //Prep billInterface
     GridBagLayout billInterfacePanel = new GridBagLayout();
-    this.setLayout(billInterfacePanel);
+    setLayout(billInterfacePanel);
     GridBagConstraints c = new GridBagConstraints();
     c.weightx = 1;
     c.weighty = 1;
@@ -76,8 +79,21 @@ public class BillInterface extends JPanel {
     c.gridx = 0;
     c.gridy = 1;
     c.weighty = 0.1;
-
     this.add(taxPanel, c);
+    c.gridx = 1;
+    c.gridy = 1;
+    c.weighty = 0.1;
+    this.add(createReceiptButton(), c);
+  }
+
+  public JButton createReceiptButton() {
+    JButton button = new JButton("View Receipt");
+    button.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        mainFrame.showLayout(MainFrame.RECEIPT_LAYOUT_NAME);
+      }
+    });
+    return button;
   }
 
   public boolean addCategory(Category category) {

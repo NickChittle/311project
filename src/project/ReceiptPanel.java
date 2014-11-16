@@ -4,22 +4,26 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-import javax.swing.JTable;
-import javax.swing.JPanel;
+import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.Border;
 
 public class ReceiptPanel extends JPanel {
   private Model model;
+  private MainFrame mainFrame;
 
   private JTable table;
 
-  public ReceiptPanel(Model model) {
+  public ReceiptPanel(Model model, MainFrame mainFrame) {
     this.model = model;
-
+    this.mainFrame = mainFrame;
 
     GridBagLayout layout = new GridBagLayout();
     GridBagConstraints c = new GridBagConstraints();
@@ -41,5 +45,17 @@ public class ReceiptPanel extends JPanel {
 
     c.gridy = 1;
     add(taxPanel, c);
+    c.gridy = 2;
+    add(createBackButton(), c);
+  }
+
+  public JButton createBackButton() {
+    JButton button = new JButton("Back");
+    button.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        mainFrame.showLayout(MainFrame.BILL_LAYOUT_NAME);
+      }
+    });
+    return button;
   }
 }

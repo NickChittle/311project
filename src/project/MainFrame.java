@@ -28,8 +28,8 @@ public class MainFrame {
     cardLayout = new CardLayout();
     mainPanel.setLayout(cardLayout);
 
-    billPanel = new BillInterface(model);
-    receiptPanel = new ReceiptPanel(model);
+    billPanel = new BillInterface(model, this);
+    receiptPanel = new ReceiptPanel(model, this);
 
     mainPanel.add(billPanel, BILL_LAYOUT_NAME);
     mainPanel.add(receiptPanel, RECEIPT_LAYOUT_NAME);
@@ -37,8 +37,8 @@ public class MainFrame {
     billPanel.setMenu(model.getMenu());
     addSomeBillItems();
 
-    showLayout(RECEIPT_LAYOUT_NAME);
-    //showLayout(BILL_LAYOUT_NAME);
+    //showLayout(RECEIPT_LAYOUT_NAME);
+    showLayout(BILL_LAYOUT_NAME);
     frame.add(mainPanel);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.pack();
@@ -54,10 +54,9 @@ public class MainFrame {
     for (MenuItem item : model.getMenu().getMenuItems()) {
       billPanel.addMenuItem(item);
       count++;
-      if (count >= 5) {
+      if (count >= 7) {
         break;
       }
-
     }
   }
 }
