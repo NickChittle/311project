@@ -28,6 +28,8 @@ public class BillInterface extends JPanel {
 
   private TaxManager taxManager;
 
+  private Menu menu;
+
   public BillInterface() {
 
     //Border
@@ -51,7 +53,7 @@ public class BillInterface extends JPanel {
     //Prep BillPanel
     GridBagLayout billPanelLayout = new GridBagLayout();
     JScrollPane scrollingBillPanel = new JScrollPane(billPanel);
-    //scrollingBillPanel.setVerticalScrollBar(new JScrollBar());
+    scrollingBillPanel.getVerticalScrollBar().setUnitIncrement(16);
     scrollingBillPanel.setWheelScrollingEnabled(true);
 
     billPanel.setLayout(billPanelLayout);
@@ -115,5 +117,14 @@ public class BillInterface extends JPanel {
 
     removeMenuItem((BillMenuItem) billPanel.getComponents()[index]);
     return true;
+  }
+
+  public void setMenu(Menu menu) {
+    this.menu = menu;
+    foodPanel.removeAll();
+    billPanel.removeAll();
+    for (Category c : menu.getCategoriesList()) {
+      addCategory(c);
+    }
   }
 }

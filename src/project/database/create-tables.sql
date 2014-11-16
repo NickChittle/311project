@@ -18,7 +18,7 @@ INSERT INTO ITEMS VALUES (DEFAULT, 'Single 4oz. Patty', 4.15, 'description', 'Or
 INSERT INTO ITEMS VALUES (DEFAULT, 'Double 4oz. Patty', 5.65, 'description', 'Original Hamburgers');
 INSERT INTO ITEMS VALUES (DEFAULT, 'Cheeseburger', 4.69, 'description', 'Original Hamburgers');
 INSERT INTO ITEMS VALUES (DEFAULT, 'Double Cheeseburger', 6.20, 'description', 'Original Hamburgers');
-INSERT INTO ITEMS VALUES (DEFAULT, 'Bacon Cheeseburger', 5,25, 'description', 'Original Hamburgers');
+INSERT INTO ITEMS VALUES (DEFAULT, 'Bacon Cheeseburger', 5.25, 'description', 'Original Hamburgers');
 INSERT INTO ITEMS VALUES (DEFAULT, 'Double Bacon Cheese', 6.85, 'description', 'Original Hamburgers');
 
 INSERT INTO ITEMS VALUES (DEFAULT, 'Primetime Single', 5.25, 'Fried Egg, Fries, Cheese, Classic Sauce, Lettuce, Tomato, Onion', 'Specialty Hamburgers');
@@ -48,7 +48,7 @@ INSERT INTO ITEMS VALUES (DEFAULT, 'Chicken N\' Bacon', 8.25, 'Fresh cut fries w
 INSERT INTO ITEMS VALUES (DEFAULT, 'Chili Poutine', 6.99, 'Fresh cut fries with homemade chili & cheddar cheese curds', 'Simon\'s Poutinerie');
 INSERT INTO ITEMS VALUES (DEFAULT, 'Bacon N\' Cheddar Poutine', 6.99, 'Gravy, crisy bacon strips, w/ cheddar cheese curds', 'Simon\'s Poutinerie');
 INSERT INTO ITEMS VALUES (DEFAULT, 'Pulled Pork Poutine', 7.25, 'Fresh cut fries with gravy, pulled pork,BBQ sauce & classic cheese curds', 'Simon\'s Poutinerie');
-INSERT INTO ITEMS VALUES (DEFAULT, 'Montreal Poutine' 7.25, 'Fresh cut fries with gravay, smoked meat & dill cheese curds', 'Simon\'s Poutinerie');
+INSERT INTO ITEMS VALUES (DEFAULT, 'Montreal Poutine', 7.25, 'Fresh cut fries with gravay, smoked meat & dill cheese curds', 'Simon\'s Poutinerie');
 INSERT INTO ITEMS VALUES (DEFAULT, 'The Prime', 7.25, 'Fresh cut fries with gravy, Simon\'s ground beef, dill cheese curds, fried onions & mushrooms', 'Simon\'s Poutinerie');
 INSERT INTO ITEMS VALUES (DEFAULT, 'Big Texas', 8.25, 'Fresh cut fries with gravy, pulled pork, bacon, cheddar cheese curds, BBQ sauce & fried onions', 'Simon\'s Poutinerie');
 

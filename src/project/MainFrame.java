@@ -11,10 +11,13 @@ public class MainFrame {
 
   private JPanel mainPanel;
   private CardLayout cardLayout;
-  private JPanel billPanel;
+  private BillInterface billPanel;
+
+  private Menu menu;
 
   public MainFrame() {
     super();
+
     frame = new JFrame("Pi Restaurant");
 
     mainPanel = new JPanel();
@@ -25,6 +28,10 @@ public class MainFrame {
 
     mainPanel.add(billPanel, BILL_LAYOUT_NAME);
 
+    menu = new Menu();
+    billPanel.setMenu(menu);
+    addSomeBillItems();
+
     frame.add(mainPanel);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.pack();
@@ -33,5 +40,11 @@ public class MainFrame {
 
   public void showLayout(String name) {
     cardLayout.show(mainPanel, name);
+  }
+
+  public void addSomeBillItems() {
+    for (MenuItem item : menu.getMenuItems()) {
+      billPanel.addMenuItem(item);
+    }
   }
 }
