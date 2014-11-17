@@ -54,9 +54,9 @@ public class MainFrame {
     for (MenuItem item : model.getMenu().getMenuItems()) {
       billPanel.addMenuItem(item);
       count++;
-      //if (count >= 7) {
-        //break;
-      //}
+      if (count >= 6) {
+        break;
+      }
     }
   }
 }
