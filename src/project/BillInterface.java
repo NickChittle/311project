@@ -52,7 +52,6 @@ public class BillInterface extends JPanel {
     foodPanel = new JPanel();
     foodPanel.setBorder(defaultBorder);
     foodPanel.setLayout(new GridLayout(0, 1));
-    foodPanel.add(new JLabel("Food Panel!"));
 
     //Prep BillPanel
     GridBagLayout billPanelLayout = new GridBagLayout();
