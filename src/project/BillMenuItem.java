@@ -98,6 +98,10 @@ public class BillMenuItem extends JPanel implements Subject {
     this.setVisible(true);
   }
 
+  public MenuItem getMenuItem() {
+    return item;
+  }
+
   public void updateLabels() {
     priceLabel.setText(String.format("$%.2f", getPrice()));
     quantityLabel.setText("" + getQuantity());

@@ -191,19 +191,23 @@ public class BillInterface extends JPanel {
   }
 
   public boolean addMenuItem(MenuItem item) {
-    GridBagConstraints c = new GridBagConstraints();
-    c.gridwidth = 0;
-    c.weightx = 1;
-    c.weighty = 1;
-    c.fill = GridBagConstraints.HORIZONTAL;
-    c.anchor = GridBagConstraints.NORTH;
+    if (model.doesBillHaveMenuItem(item)) {
+      BillMenuItem i = model.getBillMenuItemFromMenuItem(item);
+      i.plusQuantity();
+    } else {
+      GridBagConstraints c = new GridBagConstraints();
+      c.gridwidth = 0;
+      c.weightx = 1;
+      c.weighty = 1;
+      c.fill = GridBagConstraints.HORIZONTAL;
+      c.anchor = GridBagConstraints.NORTH;
 
-    BillMenuItem bmi = new BillMenuItem(item);
-    model.addBillMenuItem(bmi);
+      BillMenuItem bmi = new BillMenuItem(item);
+      model.addBillMenuItem(bmi);
+      c.ipady = bmi.getPreferredSize().height;
+      billPanel.add(bmi,c);
+    }
 
-    c.ipady = bmi.getPreferredSize().height;
-
-    billPanel.add(bmi,c);
     return true;
   }
 

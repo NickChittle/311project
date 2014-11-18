@@ -26,9 +26,28 @@ public class Model extends AbstractTableModel {
     return taxManager;
   }
 
+  public boolean doesBillHaveMenuItem(MenuItem item) {
+    for (BillMenuItem i : getBillMenuItems()) {
+      if (i.getMenuItem() == item) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  public BillMenuItem getBillMenuItemFromMenuItem(MenuItem item) {
+    for (BillMenuItem i : getBillMenuItems()) {
+      if (i.getMenuItem() == item) {
+        return i;
+      }
+    }
+    return null;
+  }
+
   public void addBillMenuItem(BillMenuItem item) {
     billMenuItems.add(item);
     taxManager.addBillMenuItem(item);
+    fireTableDataChanged();
   }
 
   public List<BillMenuItem> getBillMenuItems() {
@@ -61,7 +80,7 @@ public class Model extends AbstractTableModel {
       case 2:
         return item.getQuantity();
       case 3:
-        return item.getPrice();
+        return String.format("%.2f", item.getPrice());
     }
     return "";
   }
