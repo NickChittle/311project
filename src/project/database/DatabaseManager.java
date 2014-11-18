@@ -136,7 +136,7 @@ public class DatabaseManager {
     String query = "SELECT ID FROM BILLS";
     try {
       Statement stmt = conn.createStatement();
-      ResultSet rs = stmt.executeQuery();
+      ResultSet rs = stmt.executeQuery(query);
       while (rs.next()) {
         int id = rs.getInt("ID");
         billIds.add(id);
