@@ -126,4 +126,25 @@ public class DatabaseManager {
 
     return items;
   }
+
+  public List<Integer> getBillIds() {
+    ArrayList<Integer> billIds = new ArrayList<Integer>();
+    if (IS_TEST_DB) {
+      return billIds;
+    }
+
+    String query = "SELECT ID FROM BILLS";
+    try {
+      Statement stmt = conn.createStatement();
+      ResultSet rs = stmt.executeQuery();
+      while (rs.next()) {
+        int id = rs.getInt("ID");
+        billIds.add(id);
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.toString());
+    } finally {
+    }
+    return billIds;
+  }
 }
