@@ -13,9 +13,9 @@ public class TaxManagerTest {
 	Model model;
 	TaxManager taxMan;
 	BillMenuItem bItem;
-	MenuItem cheapBurger = new MenuItem("Cheap Burger", 2.00, "Burger to test tax calculations under $4", "TestItems");
-	MenuItem cheapPop = new MenuItem("Cheap Pop", 1.00, "Pop to test tax calculations of multiple things, under $4", "TestItems");
-	MenuItem expensiveBurger = new MenuItem("Expensive Burger", 10.00, "Burger to test tax calculations above $4", "TestItems");
+	MenuItem cheapBurger = new MenuItem(1, "Cheap Burger", 2.00, "Burger to test tax calculations under $4", "TestItems");
+	MenuItem cheapPop = new MenuItem(2, "Cheap Pop", 1.00, "Pop to test tax calculations of multiple things, under $4", "TestItems");
+	MenuItem expensiveBurger = new MenuItem(3, "Expensive Burger", 10.00, "Burger to test tax calculations above $4", "TestItems");
 	//test for bill under $4, for 5% tax.
 	@Test
 	public void reducedTaxOneItem() {
