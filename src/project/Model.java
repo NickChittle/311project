@@ -26,6 +26,10 @@ public class Model extends AbstractTableModel {
     return taxManager;
   }
 
+  public void clearBillMenuItems() {
+    billMenuItems.clear();
+  }
+
   public boolean doesBillHaveMenuItem(MenuItem item) {
     for (BillMenuItem i : getBillMenuItems()) {
       if (i.getMenuItem() == item) {

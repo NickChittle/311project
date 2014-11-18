@@ -47,6 +47,18 @@ public class ReceiptPanel extends JPanel {
     add(taxPanel, c);
     c.gridy = 2;
     add(createBackButton(), c);
+    c.gridy = 3;
+    add(createSaveBillButton(), c);
+  }
+
+  public JButton createSaveBillButton() {
+    JButton button = new JButton("Save Bill");
+    button.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        mainFrame.saveBill();
+      }
+    });
+    return button;
   }
 
   public JButton createBackButton() {

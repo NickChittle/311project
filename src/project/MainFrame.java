@@ -1,8 +1,12 @@
 package project;
 
+import java.util.List;
+
 import java.awt.CardLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+
+import project.database.DatabaseManager;
 
 public class MainFrame {
   public static final String BILL_LAYOUT_NAME = "billLayout";
@@ -37,12 +41,29 @@ public class MainFrame {
     billPanel.setMenu(model.getMenu());
     addSomeBillItems();
 
+    //loadBill(5);
+
     //showLayout(RECEIPT_LAYOUT_NAME);
     showLayout(BILL_LAYOUT_NAME);
     frame.add(mainPanel);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.pack();
     frame.setVisible(true);
+  }
+
+  public void saveBill() {
+    DatabaseManager db = new DatabaseManager();
+    db.saveBill(model.getBillMenuItems());
+  }
+
+  public void loadBill(int billId) {
+    billPanel.clearBillMenuItems();
+    DatabaseManager db = new DatabaseManager();
+
+    List<BillMenuItem> items = db.readBill(billId, model.getMenu().getMenuItems());
+    for (BillMenuItem item : items) {
+      billPanel.addBillMenuItem(item);
+    }
   }
 
   public void showLayout(String name) {

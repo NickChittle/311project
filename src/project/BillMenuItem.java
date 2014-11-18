@@ -36,7 +36,7 @@ public class BillMenuItem extends JPanel implements Subject {
   private JButton minusQuantityButton;
   private JButton plusQuantityButton;
 
-  BillMenuItem(MenuItem item) {
+  public BillMenuItem(MenuItem item) {
     this.item = item;
     this.quantity = 1;
 
@@ -100,6 +100,12 @@ public class BillMenuItem extends JPanel implements Subject {
 
   public MenuItem getMenuItem() {
     return item;
+  }
+
+  public void setQuantity(int q) {
+    this.quantity = q;
+    updateLabels();
+    publish();
   }
 
   public void updateLabels() {
