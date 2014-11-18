@@ -58,7 +58,7 @@ public class TaxManager implements Observer {
 
   public double calculateTax(double subtotal) {
     double tax = 0;
-    if (subtotal < 4) {
+    if (subtotal <= 4) {
       tax = 0.05 * subtotal;
     } else {
       tax = 0.13 * subtotal;
