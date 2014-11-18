@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.ActionListener;
@@ -17,6 +18,7 @@ import java.util.Vector;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollBar;
 import javax.swing.JScrollPane;
@@ -31,7 +33,8 @@ public class BillInterface extends JPanel {
   private Model model;
   private Menu menu;
   private MainFrame mainFrame;
-
+  private JList jLst; 
+  
   public BillInterface(Model model, MainFrame mainFrame) {
     this.model = model;
     this.mainFrame = mainFrame;
@@ -53,6 +56,7 @@ public class BillInterface extends JPanel {
     foodPanel.setBorder(defaultBorder);
     foodPanel.setLayout(new GridLayout(0, 1));
 
+  
     //Prep BillPanel
     GridBagLayout billPanelLayout = new GridBagLayout();
     JScrollPane scrollingBillPanel = new JScrollPane(billPanel);
@@ -95,8 +99,8 @@ public class BillInterface extends JPanel {
     return button;
   }
 
-  public boolean addCategory(Category category) {
-    GridBagConstraints c = new GridBagConstraints();
+  public boolean addCategory(Category category) {  
+	GridBagConstraints c = new GridBagConstraints();
     c.gridwidth = 0;
     c.weightx = 1;
     c.weighty = 1;
@@ -104,6 +108,85 @@ public class BillInterface extends JPanel {
     c.anchor = GridBagConstraints.NORTH;
     c.ipady = category.getPreferredSize().height;
     foodPanel.add(category,c);
+    category.addMouseListener(new MouseListener() {
+	      @Override
+	      public void mouseClicked(MouseEvent e) {
+	        // Make this expand the category.
+	        System.out.println("You clicked on " + ((Category) e.getComponent()));
+	        
+	        int componentIndex =-1;
+	        int listIndex =-1;
+	        int index=0;
+  		for(Component comp : foodPanel.getComponents())
+  		{
+  			if (comp == e.getComponent())
+  			{
+  				componentIndex=index;
+  			}
+  			if (comp == jLst)
+  			{
+  				
+  				listIndex=index;
+  			}
+  			index++;
+  		}
+	        
+	        
+	        if(listIndex != -1)
+	        {
+	        	foodPanel.remove(jLst);
+	        	System.out.println("remove");
+	        	if (componentIndex > listIndex) componentIndex--;
+	        }
+	        
+	        if(listIndex != componentIndex+1)
+	        {	    		
+	    		
+	        	Object[] items = ((Category) e.getComponent()).getMenuItems();
+	    		
+	    		jLst = new JList<Object>(items);
+	    		jLst.setPreferredSize(new Dimension(200,50));
+	        	jLst.addMouseListener(new MouseAdapter() 
+	        	{
+	        	    public void mouseClicked(MouseEvent evt) 
+	        	    {
+	        	        JList<Object> list = (JList<Object>)evt.getSource();
+	        	        if (evt.getClickCount() == 2) 
+	        	        {
+	        	           addMenuItem((MenuItem)jLst.getSelectedValue());
+	        	        }	        	        
+	        	    }
+	        	});
+	    		
+	    		
+	    		
+	    		
+	    		foodPanel.add(jLst, componentIndex+1);
+	        }
+	        foodPanel.revalidate();
+      	foodPanel.repaint();
+	      }
+
+	      @Override
+	      public void mouseEntered(MouseEvent arg0) {
+	        // TODO Auto-generated method stub
+	      }
+
+	      @Override
+	      public void mouseExited(MouseEvent arg0) {
+	        // TODO Auto-generated method stub
+	      }
+
+	      @Override
+	      public void mousePressed(MouseEvent arg0) {
+	        // TODO Auto-generated method stub
+	      }
+
+	      @Override
+	      public void mouseReleased(MouseEvent arg0) {
+	        // TODO Auto-generated method stub
+	      }
+	    }); // addMouseListener
     return true;
   }
 
@@ -131,7 +214,6 @@ public class BillInterface extends JPanel {
   public boolean removeMenuItem(int index) {
     if (index < 0 ||  index > billPanel.getComponents().length)
       return false;
-
     removeMenuItem((BillMenuItem) billPanel.getComponents()[index]);
     return true;
   }

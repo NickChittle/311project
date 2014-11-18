@@ -52,33 +52,7 @@ public class Category extends JPanel {
     this.setSize(size);
     this.setVisible(true);
 
-    this.addMouseListener(new MouseListener() {
-      @Override
-      public void mouseClicked(MouseEvent e) {
-        // Make this expand the category.
-        System.out.println("You clicked on " + ((Category) e.getComponent()));
-      }
-
-      @Override
-      public void mouseEntered(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-      }
-
-      @Override
-      public void mouseExited(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-      }
-
-      @Override
-      public void mousePressed(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-      }
-
-      @Override
-      public void mouseReleased(MouseEvent arg0) {
-        // TODO Auto-generated method stub
-      }
-    }); // addMouseListener
+    
   }
 
   public String getName() {
@@ -89,4 +63,10 @@ public class Category extends JPanel {
   public String toString() {
     return "Name: " + getName();
   }
+
+public Object[] getMenuItems()
+{
+	  
+	  return  items.toArray();
+}
 }
