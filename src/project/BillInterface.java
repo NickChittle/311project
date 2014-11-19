@@ -161,11 +161,10 @@ public class BillInterface extends JPanel {
           index++;
         }
         if(e.getComponent() instanceof Category) {
-
           Object[] items = ((Category) e.getComponent()).getMenuItems();
-              jLst.setListData(items);
-            }
-         foodPanel.revalidate();
+          jLst.setListData(items);
+        }
+        foodPanel.revalidate();
         foodPanel.repaint();
       }
 
