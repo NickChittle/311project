@@ -48,13 +48,12 @@ public class BillInterface extends JPanel {
     taxPanel.setBorder(defaultBorder);
     taxPanel.setLayout(new GridLayout());
     JLabel taxLabel = model.getTaxManager().getTaxLabel();  // Managed by the TaxManager object.
+    taxLabel.setPreferredSize(new Dimension(200, 50));
     taxPanel.add(taxLabel);
-
 
     JPanel bindingPanel = new JPanel();
     bindingPanel.setLayout(new GridBagLayout());
 
-    taxPanel.setBorder(defaultBorder);
     billPanel = new JPanel();
 
     foodPanel = new JPanel();
