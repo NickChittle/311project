@@ -35,7 +35,7 @@ public class BillInterface extends JPanel {
   private MainFrame mainFrame;
   private JList jLst;
   private JPanel bindingPanel;
-  
+
   public BillInterface(Model model, MainFrame mainFrame) {
     this.model = model;
     this.mainFrame = mainFrame;
@@ -50,36 +50,35 @@ public class BillInterface extends JPanel {
     JLabel taxLabel = model.getTaxManager().getTaxLabel();  // Managed by the TaxManager object.
     taxPanel.add(taxLabel);
 
-    
+
     JPanel bindingPanel = new JPanel();
     bindingPanel.setLayout(new GridBagLayout());
-    
+
     taxPanel.setBorder(defaultBorder);
     billPanel = new JPanel();
 
     foodPanel = new JPanel();
     foodPanel.setBorder(defaultBorder);
     foodPanel.setLayout(new GridLayout(0, 1));
-    jLst=new JList();
+    jLst = new JList();
     jLst.addMouseListener(new MouseAdapter() {
-              public void mouseClicked(MouseEvent evt) {
-                  JList<Object> list = (JList<Object>)evt.getSource();
-                  if (evt.getClickCount() == 2) {
-                    addMenuItem((MenuItem)jLst.getSelectedValue());
-                  }
-                }
-              });
-   
+      public void mouseClicked(MouseEvent evt) {
+        JList<Object> list = (JList<Object>)evt.getSource();
+        if (evt.getClickCount() == 2) {
+          addMenuItem((MenuItem)jLst.getSelectedValue());
+        }
+      }
+    });
+
     //Prep BillPanel
     GridBagLayout billPanelLayout = new GridBagLayout();
     JScrollPane scrollingBillPanel = new JScrollPane(billPanel);
     scrollingBillPanel.getVerticalScrollBar().setUnitIncrement(16);
     scrollingBillPanel.setWheelScrollingEnabled(true);
 
-	JScrollPane scrollingCatagoryPanel = new JScrollPane(foodPanel);
+    JScrollPane scrollingCatagoryPanel = new JScrollPane(foodPanel);
     scrollingCatagoryPanel.getVerticalScrollBar().setUnitIncrement(16);
     scrollingCatagoryPanel.setWheelScrollingEnabled(true);
-   
 
     billPanel.setLayout(billPanelLayout);
     billPanel.setBorder(defaultBorder);
@@ -87,17 +86,14 @@ public class BillInterface extends JPanel {
     //Prep billInterface
     GridBagLayout billInterfacePanel = new GridBagLayout();
     setLayout(billInterfacePanel);
-    
-    
-    
-    
+
     GridBagConstraints bc = new GridBagConstraints();
-    
+
     bc.weightx = 1;
     bc.weighty = 3;
     bc.fill = GridBagConstraints.BOTH;
     bc.gridx = 0;
-    bc.gridy = 0;   
+    bc.gridy = 0;
     bindingPanel.add(scrollingCatagoryPanel,bc) ;
     bc.weightx = 1;
     bc.weighty = 1;
@@ -105,15 +101,9 @@ public class BillInterface extends JPanel {
     bc.gridx = 0;
     bc.gridy = 1;
     bindingPanel.add(new JScrollPane(jLst),bc);
-    
-    
-    
-    //new JScrollPane(jLst)
-    
+
     GridBagConstraints c = new GridBagConstraints();
-    
-    
-    
+
     c.weightx = 1;
     c.weighty = 1;
     c.fill = GridBagConstraints.BOTH;
@@ -123,14 +113,13 @@ public class BillInterface extends JPanel {
     c.gridx = 1;
     c.gridy = 0;
     this.add(scrollingBillPanel, c);
-    
+
     c.gridx = 0;
-    c.gridy = 2;
+    c.gridy = 1;
     c.weighty = 0.1;
-    
+
     this.add(taxPanel, c);
-    
-    
+
     c.gridx = 1;
     c.gridy = 1;
     c.weighty = 0.1;
@@ -172,20 +161,11 @@ public class BillInterface extends JPanel {
           }
           index++;
         }
-/*
-        if(listIndex != -1) {
-          foodPanel.remove(jLst);
-          if (componentIndex > listIndex) componentIndex--;
-        }
-*/
         if(e.getComponent() instanceof Category) {
 
           Object[] items = ((Category) e.getComponent()).getMenuItems();
               jLst.setListData(items);
-           //   jLst.setPreferredSize(new Dimension(200,20)); 
             }
-        //foodPanel.remove(jLst);
-        //foodPanel.add(jLst);
          foodPanel.revalidate();
         foodPanel.repaint();
       }
