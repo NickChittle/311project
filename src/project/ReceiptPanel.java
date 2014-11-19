@@ -49,6 +49,8 @@ public class ReceiptPanel extends JPanel {
     add(createBackButton(), c);
     c.gridy = 3;
     add(createSaveBillButton(), c);
+    c.gridy = 4;
+    add(createLoadBillButton(), c);
   }
 
   public JButton createSaveBillButton() {
@@ -61,11 +63,21 @@ public class ReceiptPanel extends JPanel {
     return button;
   }
 
+  public JButton createLoadBillButton() {
+    JButton button = new JButton("Load Bill");
+    button.addActionListener(new ActionListener() {
+      public void actionPerformed(ActionEvent e) {
+        mainFrame.showLoadBillLayout();
+      }
+    });
+    return button;
+  }
+
   public JButton createBackButton() {
     JButton button = new JButton("Back");
     button.addActionListener(new ActionListener() {
       public void actionPerformed(ActionEvent e) {
-        mainFrame.showLayout(MainFrame.BILL_LAYOUT_NAME);
+        mainFrame.showBillInterfaceLayout();
       }
     });
     return button;

@@ -48,6 +48,12 @@ public class TaxManager implements Observer {
     }
   }
 
+  public double getTotal() {
+    double subtotal = getSubtotal();
+    double tax = calculateTax(subtotal);
+    return subtotal + tax;
+  }
+
   public double getSubtotal() {
     double subtotal = 0;
     for (BillMenuItem i : getBillMenuItems()) {

@@ -66,11 +66,11 @@ public class DatabaseManager {
     return items;
   }
 
-  public void saveBill(List<BillMenuItem> billMenuItems) {
+  public void saveBill(List<BillMenuItem> billMenuItems, double total) {
     if (IS_TEST_DB) {
       return;
     }
-    String query = "INSERT INTO BILLS VALUES (DEFAULT)";
+    String query = "INSERT INTO BILLS VALUES (DEFAULT, " + total + ")";
     try {
       Statement stmt = conn.createStatement();
       stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
@@ -127,19 +127,20 @@ public class DatabaseManager {
     return items;
   }
 
-  public List<Integer> getBillIds() {
-    ArrayList<Integer> billIds = new ArrayList<Integer>();
+  public List<DBBill> getBills() {
+    ArrayList<DBBill> billIds = new ArrayList<DBBill>();
     if (IS_TEST_DB) {
       return billIds;
     }
 
-    String query = "SELECT ID FROM BILLS";
+    String query = "SELECT ID, TOTAL FROM BILLS";
     try {
       Statement stmt = conn.createStatement();
       ResultSet rs = stmt.executeQuery(query);
       while (rs.next()) {
         int id = rs.getInt("ID");
-        billIds.add(id);
+        double total = rs.getDouble("TOTAL");
+        billIds.add(new DBBill(id, total));
       }
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.toString());

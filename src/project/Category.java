@@ -64,9 +64,7 @@ public class Category extends JPanel {
     return "Name: " + getName();
   }
 
-public Object[] getMenuItems()
-{
-	  
-	  return  items.toArray();
-}
+  public Object[] getMenuItems() {
+    return items.toArray();
+  }
 }

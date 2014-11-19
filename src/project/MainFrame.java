@@ -11,6 +11,7 @@ import project.database.DatabaseManager;
 public class MainFrame {
   public static final String BILL_LAYOUT_NAME = "billLayout";
   public static final String RECEIPT_LAYOUT_NAME = "receiptLayout";
+  public static final String LOAD_BILL_LAYOUT_NAME = "loadBillLayout";
 
   private JFrame frame;
 
@@ -18,6 +19,7 @@ public class MainFrame {
   private CardLayout cardLayout;
   private BillInterface billPanel;
   private ReceiptPanel receiptPanel;
+  private LoadBillPanel loadBillPanel;
 
   private Model model;
 
@@ -34,26 +36,38 @@ public class MainFrame {
 
     billPanel = new BillInterface(model, this);
     receiptPanel = new ReceiptPanel(model, this);
+    loadBillPanel = new LoadBillPanel(this);
 
     mainPanel.add(billPanel, BILL_LAYOUT_NAME);
     mainPanel.add(receiptPanel, RECEIPT_LAYOUT_NAME);
+    mainPanel.add(loadBillPanel, LOAD_BILL_LAYOUT_NAME);
 
     billPanel.setMenu(model.getMenu());
     addSomeBillItems();
 
     //loadBill(5);
 
+    showLayout(LOAD_BILL_LAYOUT_NAME);
     //showLayout(RECEIPT_LAYOUT_NAME);
-    showLayout(BILL_LAYOUT_NAME);
+    //showLayout(BILL_LAYOUT_NAME);
     frame.add(mainPanel);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.pack();
     frame.setVisible(true);
   }
 
+  public void showLoadBillLayout() {
+    loadBillPanel.readBillsFromDB();
+    showLayout(LOAD_BILL_LAYOUT_NAME);
+  }
+
+  public void showBillInterfaceLayout() {
+    showLayout(MainFrame.BILL_LAYOUT_NAME);
+  }
+
   public void saveBill() {
     DatabaseManager db = new DatabaseManager();
-    db.saveBill(model.getBillMenuItems());
+    db.saveBill(model.getBillMenuItems(), model.getTaxManager().getTotal());
   }
 
   public void loadBill(int billId) {

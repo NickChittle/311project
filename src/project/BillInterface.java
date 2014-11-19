@@ -164,8 +164,8 @@ public class BillInterface extends JPanel {
           Object[] items = ((Category) e.getComponent()).getMenuItems();
           jLst.setListData(items);
         }
-        foodPanel.revalidate();
-        foodPanel.repaint();
+        //foodPanel.revalidate();
+        //foodPanel.repaint();
       }
 
     @Override
