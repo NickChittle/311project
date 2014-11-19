@@ -47,9 +47,9 @@ public class MainFrame {
 
     //loadBill(5);
 
-    showLayout(LOAD_BILL_LAYOUT_NAME);
+    //showLayout(LOAD_BILL_LAYOUT_NAME);
     //showLayout(RECEIPT_LAYOUT_NAME);
-    //showLayout(BILL_LAYOUT_NAME);
+    showLayout(BILL_LAYOUT_NAME);
     frame.add(mainPanel);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     frame.pack();
