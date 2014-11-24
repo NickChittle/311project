@@ -90,11 +90,11 @@ public class MainPanel extends javax.swing.JPanel {
       .addGroup(jPanel1Layout.createSequentialGroup()
         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addGroup(jPanel1Layout.createSequentialGroup()
-            .addGap(71, 71, 71)
-            .addComponent(sloganLabel))
-          .addGroup(jPanel1Layout.createSequentialGroup()
             .addContainerGap()
-            .addComponent(imageIconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addComponent(imageIconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(jPanel1Layout.createSequentialGroup()
+            .addGap(45, 45, 45)
+            .addComponent(sloganLabel)))
         .addContainerGap(21, Short.MAX_VALUE))
     );
     jPanel1Layout.setVerticalGroup(
@@ -102,9 +102,9 @@ public class MainPanel extends javax.swing.JPanel {
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
         .addContainerGap()
         .addComponent(imageIconLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 21, Short.MAX_VALUE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
         .addComponent(sloganLabel)
-        .addGap(29, 29, 29))
+        .addContainerGap(44, Short.MAX_VALUE))
     );
 
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

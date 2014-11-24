@@ -444,7 +444,7 @@ public class BillPanel extends javax.swing.JPanel {
 
   }//GEN-LAST:event_tipAmountTextFieldActionPerformed
   private void tipButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipButton4ActionPerformed
-        this.updateTipPercent(0.25);
+    this.updateTipPercent(0.25);
   }//GEN-LAST:event_tipButton4ActionPerformed
 
   private void minusQuantityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minusQuantityButtonActionPerformed
@@ -453,6 +453,7 @@ public class BillPanel extends javax.swing.JPanel {
       BillMenuItem item = billItemsListModel.getElementAt(index);
       item.minusQuantity();
       revalidateBillItemsList();
+      updateTipField();
     }
   }//GEN-LAST:event_minusQuantityButtonActionPerformed
 
@@ -462,6 +463,7 @@ public class BillPanel extends javax.swing.JPanel {
       BillMenuItem item = billItemsListModel.getElementAt(index);
       item.plusQuantity();
       revalidateBillItemsList();
+      updateTipField();
     }
   }//GEN-LAST:event_increaseQuantityButtonActionPerformed
 
