@@ -33,6 +33,11 @@ public class TaxManager implements Observer, Subject {
 
     return String.format("Subtotal: $%.2f, Tax: $%.2f, Tip $%.2f, Total $%.2f", subtotal, tax, tip, total);
   }
+  
+  public double getTotal() {
+    double taxedTotal = getTaxedTotal();
+    return taxedTotal + bill.getTip().getTip(taxedTotal);
+  }
 
   public void updateTaxLabel() {
     publish();

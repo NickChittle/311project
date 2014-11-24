@@ -127,7 +127,7 @@ public class LoadBillPanel extends javax.swing.JPanel {
     int index = billsList.getSelectedIndex();
     if (index != -1) {
       DBBill bill = billsListModel.getElementAt(index);
-      mainFrame.loadBill(bill.getId());
+      mainFrame.loadBill(bill);
     }
   }
   

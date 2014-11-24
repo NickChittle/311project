@@ -6,7 +6,7 @@
 package project;
 
 public class Tip {
-  private enum TipType { 
+  public enum TipType { 
     AMOUNT, PERCENT 
   }
   
@@ -30,18 +30,40 @@ public class Tip {
     return tip;
   }
   
+  public TipType getTipType() {
+    return tipType;
+  }
+  
   public String getTipString(double total) {
     return String.format("%.2f", getTip(total));
   }
   
   public void setTipAmount(double amount) {
-    System.out.println("HERE");
     this.tipType = TipType.AMOUNT;
     this.tipAmount = amount;
+    this.tipPercent = 0;
+  }
+  
+  public double getTipAmount() {
+    return tipAmount;
   }
   
   public void setTipPercent(double percent) {
     this.tipType = TipType.PERCENT;
     this.tipPercent = percent;
+    this.tipAmount = 0;
+  }
+  
+  public double getTipPercent() {
+    return tipPercent;
+  }
+  
+  public String getLoadTipString(double amount) {
+    if (tipType == TipType.AMOUNT) {
+      return String.format("$%.2f", getTipAmount());
+    } else if (tipType == TipType.PERCENT) {
+      return String.format("%.2f%%, $%.2f", getTipPercent() * 100, getTip(amount));
+    }
+    return "";
   }
 }

@@ -9,6 +9,7 @@ import java.awt.CardLayout;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JLabel;
+import project.database.DBBill;
 import project.database.DatabaseManager;
 
 /**
@@ -130,14 +131,10 @@ public class MainFrame extends javax.swing.JFrame implements Observer {
     openNewBill(bill);
   }
   
-  public void loadBill(int billId) {
+  public void loadBill(DBBill dbBill) {
     DatabaseManager db = new DatabaseManager();
 
-    List<BillMenuItem> items = db.readBill(billId, menu.getMenuItems());
-    Bill bill = createNewBill();
-    for (BillMenuItem item : items) {
-      bill.addBillMenuItem(item);
-    }
+    Bill bill = db.readBill(dbBill, menu.getMenuItems());
     openNewBill(bill);
   }
   
@@ -152,7 +149,7 @@ public class MainFrame extends javax.swing.JFrame implements Observer {
     DatabaseManager db = new DatabaseManager();
     Bill bill = getCurrentBill();
     if (bill != null) {
-      db.saveBill(bill.getBillMenuItems(), bill.getTaxManager().getTaxedTotal());
+      db.saveBill(bill);
     }
   }
   

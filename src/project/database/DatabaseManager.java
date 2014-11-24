@@ -8,9 +8,12 @@ import java.sql.Statement;
 
 import java.util.ArrayList;
 import java.util.List;
+import project.Bill;
 
 import project.MenuItem;
 import project.BillMenuItem;
+import project.Tip;
+import project.Tip.TipType;
 
 public class DatabaseManager {
   private static boolean IS_TEST_DB = false;
@@ -66,11 +69,16 @@ public class DatabaseManager {
     return items;
   }
 
-  public void saveBill(List<BillMenuItem> billMenuItems, double total) {
+  public void saveBill(Bill bill) {
     if (IS_TEST_DB) {
       return;
     }
-    String query = "INSERT INTO BILLS VALUES (DEFAULT, " + total + ")";
+    Tip tip = bill.getTip();
+    double total = bill.getTotalWithTip();
+    int tipType = tip.getTipType().ordinal();
+    double tipAmount = tip.getTipAmount();
+    double tipPercent = tip.getTipPercent();
+    String query = String.format("INSERT INTO BILLS VALUES(DEFAULT, %f, %d, %f, %f)", total, tipType, tipAmount, tipPercent);
     try {
       Statement stmt = conn.createStatement();
       stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
@@ -82,7 +90,7 @@ public class DatabaseManager {
         System.out.println("Could not get key from inserted Bill");
         return;
       }
-      for (BillMenuItem item : billMenuItems) {
+      for (BillMenuItem item : bill.getBillMenuItems()) {
         int itemId = item.getMenuItem().getId();
         int quantity = item.getQuantity();
         Statement s = conn.createStatement();
@@ -98,12 +106,13 @@ public class DatabaseManager {
   /**
    * Menu Items are the read in list of items.
    */
-  public List<BillMenuItem> readBill(int billId, List<MenuItem> menuItems) {
-    ArrayList<BillMenuItem> items = new ArrayList<BillMenuItem>();
+  public Bill readBill(DBBill dbBill, List<MenuItem> menuItems) {
     if (IS_TEST_DB) {
-      return items;
+      return new Bill();
     }
-    String query = "SELECT ITEM_ID, QUANTITY FROM BILLS_ITEMS WHERE BILL_ID=" + billId;
+    Bill bill = new Bill();
+    bill.setTip(dbBill.getTip());
+    String query = "SELECT ITEM_ID, QUANTITY FROM BILLS_ITEMS WHERE BILL_ID=" + dbBill.getId();
     try {
       Statement stmt = conn.createStatement();
       ResultSet rs = stmt.executeQuery(query);
@@ -114,17 +123,16 @@ public class DatabaseManager {
           if (i.getId() == itemId) {
             BillMenuItem bmi = new BillMenuItem(i);
             bmi.setQuantity(quantity);
-            items.add(bmi);
+            bill.addBillMenuItem(bmi);
             break;
           }
         }
       }
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.toString());
-    } finally {
     }
 
-    return items;
+    return bill;
   }
 
   public List<DBBill> getBills() {
@@ -133,14 +141,24 @@ public class DatabaseManager {
       return billIds;
     }
 
-    String query = "SELECT ID, TOTAL FROM BILLS";
+    String query = "SELECT ID, TOTAL, TIP_TYPE, TIP_AMOUNT, TIP_PERCENT FROM BILLS";
     try {
       Statement stmt = conn.createStatement();
       ResultSet rs = stmt.executeQuery(query);
       while (rs.next()) {
         int id = rs.getInt("ID");
         double total = rs.getDouble("TOTAL");
-        billIds.add(new DBBill(id, total));
+        int tipType = rs.getInt("TIP_TYPE");
+        double tipAmount = rs.getDouble("TIP_AMOUNT");
+        double tipPercent = rs.getDouble("TIP_PERCENT");
+        Tip tip = new Tip();
+        TipType enumTipType = TipType.values()[tipType];
+        if (enumTipType == TipType.AMOUNT) {
+          tip.setTipAmount(tipAmount);
+        } else if (enumTipType == TipType.PERCENT) {
+          tip.setTipPercent(tipPercent);
+        }
+        billIds.add(new DBBill(id, total, tip));
       }
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.toString());

@@ -25,8 +25,16 @@ public class Bill extends AbstractTableModel {
     return tip;
   }
   
-  public double getTotal() {
+  public void setTip(Tip tip) {
+    this.tip = tip;
+  }
+  
+  public double getTotalWithoutTip() {
     return taxManager.getTaxedTotal();
+  }
+  
+  public double getTotalWithTip() {
+    return taxManager.getTotal();
   }
   
   public TaxManager getTaxManager() {
