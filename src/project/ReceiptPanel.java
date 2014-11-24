@@ -5,6 +5,8 @@
  */
 package project;
 
+import javax.swing.JLabel;
+
 /**
  *
  * @author chittle
@@ -45,16 +47,16 @@ public class ReceiptPanel extends javax.swing.JPanel {
     setPreferredSize(new java.awt.Dimension(800, 600));
 
     receiptTable.setModel(new javax.swing.table.DefaultTableModel(
-          new Object [][] {
-            {null, null, null, null},
-      {null, null, null, null},
-      {null, null, null, null},
-      {null, null, null, null}
-          },
-          new String [] {
-            "Title 1", "Title 2", "Title 3", "Title 4"
-          }
-          ));
+      new Object [][] {
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null},
+        {null, null, null, null}
+      },
+      new String [] {
+        "Title 1", "Title 2", "Title 3", "Title 4"
+      }
+    ));
     jScrollPane1.setViewportView(receiptTable);
 
     taxLabel.setText("Tax Label");
@@ -79,40 +81,38 @@ public class ReceiptPanel extends javax.swing.JPanel {
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
     this.setLayout(layout);
     layout.setHorizontalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-          .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-              .addGap(57, 57, 57)
-              .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-              .addGap(329, 329, 329)
-              .addComponent(receiptTitleLabel))
-            .addGroup(layout.createSequentialGroup()
-              .addGap(337, 337, 337)
-              .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(layout.createSequentialGroup()
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(layout.createSequentialGroup()
+            .addGap(329, 329, 329)
+            .addComponent(receiptTitleLabel))
+          .addGroup(layout.createSequentialGroup()
+            .addGap(57, 57, 57)
+            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+              .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 679, javax.swing.GroupLayout.PREFERRED_SIZE)
+              .addGroup(layout.createSequentialGroup()
+                .addComponent(backButton)
+                .addGap(18, 18, 18)
                 .addComponent(saveBillButton)
-                .addComponent(taxLabel)
-                .addGroup(layout.createSequentialGroup()
-                  .addGap(12, 12, 12)
-                  .addComponent(backButton)))))
-          .addContainerGap(64, Short.MAX_VALUE))
-        );
+                .addGap(18, 18, 18)
+                .addComponent(taxLabel)))))
+        .addContainerGap(64, Short.MAX_VALUE))
+    );
     layout.setVerticalGroup(
-        layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-        .addGroup(layout.createSequentialGroup()
-          .addGap(19, 19, 19)
-          .addComponent(receiptTitleLabel)
-          .addGap(18, 18, 18)
-          .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-          .addGap(18, 18, 18)
-          .addComponent(taxLabel)
-          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-          .addComponent(saveBillButton)
-          .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+      layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+      .addGroup(layout.createSequentialGroup()
+        .addGap(19, 19, 19)
+        .addComponent(receiptTitleLabel)
+        .addGap(18, 18, 18)
+        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGap(18, 18, 18)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(backButton)
-          .addContainerGap(93, Short.MAX_VALUE))
-        );
+          .addComponent(saveBillButton)
+          .addComponent(taxLabel))
+        .addContainerGap(154, Short.MAX_VALUE))
+    );
   }// </editor-fold>//GEN-END:initComponents
 
   private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -126,6 +126,10 @@ public class ReceiptPanel extends javax.swing.JPanel {
   public void setBill(Bill b) {
     this.bill = b;
     receiptTable.setModel(bill);
+  }
+  
+  public JLabel getTaxLabel() {
+    return this.taxLabel;
   }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables

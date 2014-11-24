@@ -13,10 +13,20 @@ public class Bill extends AbstractTableModel {
   public static String[] columnNames = {"Name", "Price", "Quantity", "Amount"};
   private ArrayList<BillMenuItem> billMenuItems;
   private TaxManager taxManager;
+  private Tip tip;
 
   public Bill() {
     billMenuItems = new ArrayList<BillMenuItem>();
     this.taxManager = new TaxManager(this);
+    tip = new Tip();
+  }
+  
+  public Tip getTip() {
+    return tip;
+  }
+  
+  public double getTotal() {
+    return taxManager.getTaxedTotal();
   }
   
   public TaxManager getTaxManager() {

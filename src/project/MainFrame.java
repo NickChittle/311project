@@ -8,13 +8,14 @@ package project;
 import java.awt.CardLayout;
 import java.util.ArrayList;
 import java.util.List;
+import javax.swing.JLabel;
 import project.database.DatabaseManager;
 
 /**
  *
  * @author chittle
  */
-public class MainFrame extends javax.swing.JFrame {
+public class MainFrame extends javax.swing.JFrame implements Observer {
   private static final String MAIN_PANEL_NAME = "mainPanelName";
   private static final String LOAD_BILL_PANEL_NAME = "loadBillPanelName";
   private static final String RECEIPT_PANEL_NAME = "receiptPanelName";
@@ -23,6 +24,7 @@ public class MainFrame extends javax.swing.JFrame {
   private Menu menu;
   private ArrayList<Bill> bills;
   private int currentBillIndex;
+  private ArrayList<JLabel> taxLabels;
 
   /**
    * Creates new form MainFrame
@@ -34,6 +36,8 @@ public class MainFrame extends javax.swing.JFrame {
     bills = new ArrayList<Bill>();
     mainPanel1.setBillsList(bills);
     currentBillIndex = -1;
+    taxLabels = new ArrayList<JLabel>();
+    taxLabels.add(receiptPanel1.getTaxLabel());
   }
 
   /**
@@ -81,6 +85,12 @@ public class MainFrame extends javax.swing.JFrame {
     showLoadBillPanel();
   }
   
+  public void updateTaxLabels(String taxText) {
+    for (JLabel label : taxLabels) {
+      label.setText(taxText);
+    }
+  }
+  
   public void openReceiptView(int index) {
     if (index >= 0 && index < bills.size()) {
       this.receiptPanel1.setBill(bills.get(index));
@@ -109,27 +119,40 @@ public class MainFrame extends javax.swing.JFrame {
     showBillPanel();
   }
   
+  private Bill createNewBill() {
+    Bill bill = new Bill();
+    bill.getTaxManager().subscribe(this);
+    return bill;
+  }
+  
   public void openNewBill() {
-    Bill b = new Bill();
-    openNewBill(b);
+    Bill bill = createNewBill();
+    openNewBill(bill);
   }
   
   public void loadBill(int billId) {
     DatabaseManager db = new DatabaseManager();
 
     List<BillMenuItem> items = db.readBill(billId, menu.getMenuItems());
-    Bill bill = new Bill();
+    Bill bill = createNewBill();
     for (BillMenuItem item : items) {
       bill.addBillMenuItem(item);
     }
     openNewBill(bill);
   }
   
+  public Bill getCurrentBill() {
+    if (currentBillIndex >= 0 && currentBillIndex < bills.size()) {
+      return bills.get(currentBillIndex);
+    }
+    return null;
+  }
+  
   public void saveBill() {
     DatabaseManager db = new DatabaseManager();
-    if (currentBillIndex >= 0 && currentBillIndex < bills.size()) {
-      Bill bill = bills.get(currentBillIndex);
-      db.saveBill(bill.getBillMenuItems(), bill.getTaxManager().getTotal());
+    Bill bill = getCurrentBill();
+    if (bill != null) {
+      db.saveBill(bill.getBillMenuItems(), bill.getTaxManager().getTaxedTotal());
     }
   }
   
@@ -182,4 +205,13 @@ public class MainFrame extends javax.swing.JFrame {
   private project.MainPanel mainPanel1;
   private project.ReceiptPanel receiptPanel1;
   // End of variables declaration//GEN-END:variables
+
+  @Override
+  public void update() {
+    Bill bill = getCurrentBill();
+    if (bill != null) {
+      TaxManager taxManager = bill.getTaxManager();
+      this.updateTaxLabels(taxManager.getTaxLabelText());
+    }
+  }
 }

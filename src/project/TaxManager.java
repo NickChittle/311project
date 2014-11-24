@@ -3,29 +3,16 @@ package project;
 import java.util.List;
 import java.util.ArrayList;
 
-import java.awt.GridLayout;
-
-import javax.swing.JLabel;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.Border;
-
-public class TaxManager implements Observer {
-  private JLabel taxLabel;
+public class TaxManager implements Observer, Subject {
+  private ArrayList<Observer> observers = new ArrayList<Observer>();
   private Bill bill;
+  private MainFrame mainFrame;
   // Swings components can only have one parent, so we have multiple versions of them.
-  private ArrayList<JLabel> taxLabels;
+  
 
   public TaxManager(Bill bill) {
     this.bill = bill;
-    taxLabels = new ArrayList<JLabel>();
     updateTaxLabel();
-  }
-
-  public JLabel getTaxLabel() {
-    JLabel label = new JLabel("Tax Label");
-    taxLabels.add(label);
-    updateTaxLabel();
-    return label;
   }
 
   public List<BillMenuItem> getBillMenuItems() {
@@ -40,19 +27,18 @@ public class TaxManager implements Observer {
   public String getTaxLabelText() {
     double subtotal = getSubtotal();
     double tax = calculateTax(subtotal);
-    double total = subtotal + tax;
+    double taxedTotal = subtotal + tax;
+    double tip = bill.getTip().getTip(taxedTotal);
+    double total = taxedTotal + tip;
 
-    return String.format("Subtotal: $%.2f, Tax: $%.2f, Total $%.2f", subtotal, tax, total);
+    return String.format("Subtotal: $%.2f, Tax: $%.2f, Tip $%.2f, Total $%.2f", subtotal, tax, tip, total);
   }
 
   public void updateTaxLabel() {
-    String text = getTaxLabelText();
-    for (JLabel label : taxLabels) {
-      label.setText(text);
-    }
+    publish();
   }
 
-  public double getTotal() {
+  public double getTaxedTotal() {
     double subtotal = getSubtotal();
     double tax = calculateTax(subtotal);
     return subtotal + tax;
@@ -76,7 +62,20 @@ public class TaxManager implements Observer {
     return tax;
   }
 
+  @Override
   public void update() {
     updateTaxLabel();
+  }
+
+  @Override
+  public void subscribe(Observer o) {
+    this.observers.add(o);
+  }
+
+  @Override
+  public void publish() {
+    for (Observer o : this.observers) {
+      o.update();
+    }
   }
 }

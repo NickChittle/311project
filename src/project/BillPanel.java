@@ -1,6 +1,8 @@
 package project;
 
 import javax.swing.DefaultListModel;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -74,6 +76,7 @@ public class BillPanel extends javax.swing.JPanel {
     tipButton3 = new javax.swing.JButton();
     tipButton4 = new javax.swing.JButton();
     tipAmountTextField = new javax.swing.JTextField();
+    jLabel1 = new javax.swing.JLabel();
     jPanel1 = new javax.swing.JPanel();
     descriptionLabel = new javax.swing.JLabel();
     jScrollPane5 = new javax.swing.JScrollPane();
@@ -128,21 +131,20 @@ public class BillPanel extends javax.swing.JPanel {
     billItemsPanel.setLayout(billItemsPanelLayout);
     billItemsPanelLayout.setHorizontalGroup(
       billItemsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(billItemsPanelLayout.createSequentialGroup()
-        .addContainerGap()
-        .addGroup(billItemsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-          .addComponent(jScrollPane3)
-          .addGroup(billItemsPanelLayout.createSequentialGroup()
-            .addGap(12, 12, 12)
-            .addComponent(minusQuantityButton)
-            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(increaseQuantityButton)
-            .addGap(12, 12, 12)))
-        .addContainerGap())
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, billItemsPanelLayout.createSequentialGroup()
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         .addComponent(billItemsLabel)
         .addGap(107, 107, 107))
+      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, billItemsPanelLayout.createSequentialGroup()
+        .addGap(24, 24, 24)
+        .addComponent(minusQuantityButton)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
+        .addComponent(increaseQuantityButton)
+        .addGap(24, 24, 24))
+      .addGroup(billItemsPanelLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        .addContainerGap())
     );
     billItemsPanelLayout.setVerticalGroup(
       billItemsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -273,12 +275,19 @@ public class BillPanel extends javax.swing.JPanel {
       }
     });
 
-    tipAmountTextField.setText("$0");
+    tipAmountTextField.setText("0");
     tipAmountTextField.addActionListener(new java.awt.event.ActionListener() {
       public void actionPerformed(java.awt.event.ActionEvent evt) {
         tipAmountTextFieldActionPerformed(evt);
       }
     });
+    tipAmountTextField.addFocusListener(new java.awt.event.FocusAdapter() {
+      public void focusLost(java.awt.event.FocusEvent evt) {
+        tipAmountTextFieldFocusLost(evt);
+      }
+    });
+
+    jLabel1.setText("$");
 
     javax.swing.GroupLayout tipPanelLayout = new javax.swing.GroupLayout(tipPanel);
     tipPanel.setLayout(tipPanelLayout);
@@ -299,8 +308,10 @@ public class BillPanel extends javax.swing.JPanel {
             .addGap(50, 50, 50)
             .addComponent(tipLabel))
           .addGroup(tipPanelLayout.createSequentialGroup()
-            .addGap(36, 36, 36)
-            .addComponent(tipAmountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addGap(28, 28, 28)
+            .addComponent(jLabel1)
+            .addGap(4, 4, 4)
+            .addComponent(tipAmountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     tipPanelLayout.setVerticalGroup(
@@ -317,7 +328,9 @@ public class BillPanel extends javax.swing.JPanel {
           .addComponent(tipButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 56, Short.MAX_VALUE)
           .addComponent(tipButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         .addGap(18, 18, 18)
-        .addComponent(tipAmountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+        .addGroup(tipPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+          .addComponent(tipAmountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+          .addComponent(jLabel1))
         .addContainerGap())
     );
 
@@ -376,7 +389,7 @@ public class BillPanel extends javax.swing.JPanel {
               .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGap(42, 42, 42)
             .addComponent(billItemsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addContainerGap(21, Short.MAX_VALUE))
       .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
         .addGap(0, 0, Short.MAX_VALUE)
         .addComponent(titleLabel)
@@ -415,22 +428,22 @@ public class BillPanel extends javax.swing.JPanel {
   }//GEN-LAST:event_viewReceiptButtonActionPerformed
 
   private void tipButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipButton1ActionPerformed
-    // TODO add your handling code here:
+    this.updateTipPercent(0.10);
   }//GEN-LAST:event_tipButton1ActionPerformed
 
   private void tipButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipButton2ActionPerformed
-    // TODO add your handling code here:
+    this.updateTipPercent(0.15);
   }//GEN-LAST:event_tipButton2ActionPerformed
 
   private void tipButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipButton3ActionPerformed
-    // TODO add your handling code here:
+    this.updateTipPercent(0.20);
   }//GEN-LAST:event_tipButton3ActionPerformed
 
   private void tipAmountTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipAmountTextFieldActionPerformed
-    // TODO add your handling code here:
+
   }//GEN-LAST:event_tipAmountTextFieldActionPerformed
   private void tipButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tipButton4ActionPerformed
-    // TODO add your handling code here:
+        this.updateTipPercent(0.25);
   }//GEN-LAST:event_tipButton4ActionPerformed
 
   private void minusQuantityButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_minusQuantityButtonActionPerformed
@@ -476,6 +489,17 @@ public class BillPanel extends javax.swing.JPanel {
     }
     
   }//GEN-LAST:event_menuItemsListMouseClicked
+
+  private void tipAmountTextFieldFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_tipAmountTextFieldFocusLost
+    String text = tipAmountTextField.getText();
+    try {
+      double amount = Double.valueOf(text);
+      this.updateTipAmount(amount);
+    } catch (NumberFormatException e) {
+      System.out.println("Number Format Exception on Tip: " + e);
+      this.updateTipAmount(0);
+    }
+  }//GEN-LAST:event_tipAmountTextFieldFocusLost
 
   private void revalidateCategoriesList() {
     categoriesList.invalidate();
@@ -539,6 +563,7 @@ public class BillPanel extends javax.swing.JPanel {
       addBillMenuItem(bmi);
     }
     revalidateBillItemsList();
+    updateTipField();
   }
   
   private void addBillMenuItem(BillMenuItem item) {
@@ -561,6 +586,22 @@ public class BillPanel extends javax.swing.JPanel {
       addBillMenuItemToList(item);
     }
   }
+  
+  public void updateTipAmount(double amount) {
+    this.bill.getTip().setTipAmount(amount);
+    updateTipField();
+  }
+  
+  public void updateTipPercent(double percent) {
+    this.bill.getTip().setTipPercent(percent);
+    updateTipField();
+  }
+  
+  public void updateTipField() {
+    Tip tip = this.bill.getTip();
+    String text = tip.getTipString(this.bill.getTotal());
+    this.tipAmountTextField.setText(text);
+  }
 
   // Variables declaration - do not modify//GEN-BEGIN:variables
   private javax.swing.JButton backButton;
@@ -573,6 +614,7 @@ public class BillPanel extends javax.swing.JPanel {
   private javax.swing.JLabel descriptionLabel;
   private javax.swing.JTextPane descriptionTextPane;
   private javax.swing.JButton increaseQuantityButton;
+  private javax.swing.JLabel jLabel1;
   private javax.swing.JPanel jPanel1;
   private javax.swing.JScrollPane jScrollPane1;
   private javax.swing.JScrollPane jScrollPane2;
