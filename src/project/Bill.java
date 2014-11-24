@@ -1,35 +1,32 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package project;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.swing.table.AbstractTableModel;
 
-public class Model extends AbstractTableModel {
+public class Bill extends AbstractTableModel {
   public static String[] columnNames = {"Name", "Price", "Quantity", "Amount"};
   private ArrayList<BillMenuItem> billMenuItems;
-
   private TaxManager taxManager;
-  private Menu menu;
 
-  public Model() {
+  public Bill() {
     billMenuItems = new ArrayList<BillMenuItem>();
-    taxManager = new TaxManager(this);
-    menu = new Menu();
+    this.taxManager = new TaxManager(this);
   }
-
-  public Menu getMenu() {
-    return menu;
-  }
-
+  
   public TaxManager getTaxManager() {
     return taxManager;
   }
 
-  public void clearBillMenuItems() {
-    billMenuItems.clear();
+  public List<BillMenuItem> getBillMenuItems() {
+    return billMenuItems;
   }
-
+  
   public boolean doesBillHaveMenuItem(MenuItem item) {
     for (BillMenuItem i : getBillMenuItems()) {
       if (i.getMenuItem() == item) {
@@ -52,10 +49,6 @@ public class Model extends AbstractTableModel {
     billMenuItems.add(item);
     taxManager.addBillMenuItem(item);
     fireTableDataChanged();
-  }
-
-  public List<BillMenuItem> getBillMenuItems() {
-    return billMenuItems;
   }
 
   @Override
@@ -87,5 +80,10 @@ public class Model extends AbstractTableModel {
         return String.format("%.2f", item.getPrice());
     }
     return "";
+  }
+  
+  @Override
+  public String toString() {
+    return taxManager.getTaxLabelText();
   }
 }

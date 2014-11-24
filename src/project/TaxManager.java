@@ -11,12 +11,12 @@ import javax.swing.border.Border;
 
 public class TaxManager implements Observer {
   private JLabel taxLabel;
-  private Model model;
+  private Bill bill;
   // Swings components can only have one parent, so we have multiple versions of them.
   private ArrayList<JLabel> taxLabels;
 
-  public TaxManager(Model model) {
-    this.model = model;
+  public TaxManager(Bill bill) {
+    this.bill = bill;
     taxLabels = new ArrayList<JLabel>();
     updateTaxLabel();
   }
@@ -29,20 +29,24 @@ public class TaxManager implements Observer {
   }
 
   public List<BillMenuItem> getBillMenuItems() {
-    return model.getBillMenuItems();
+    return bill.getBillMenuItems();
   }
 
   public void addBillMenuItem(BillMenuItem i) {
     i.subscribe(this);
     updateTaxLabel();
   }
-
-  public void updateTaxLabel() {
+  
+  public String getTaxLabelText() {
     double subtotal = getSubtotal();
     double tax = calculateTax(subtotal);
     double total = subtotal + tax;
 
-    String text = String.format("Subtotal: $%.2f, Tax: $%.2f, Total $%.2f", subtotal, tax, total);
+    return String.format("Subtotal: $%.2f, Tax: $%.2f, Total $%.2f", subtotal, tax, total);
+  }
+
+  public void updateTaxLabel() {
+    String text = getTaxLabelText();
     for (JLabel label : taxLabels) {
       label.setText(text);
     }

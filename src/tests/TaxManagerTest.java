@@ -6,11 +6,11 @@ import org.junit.Test;
 
 import project.BillMenuItem;
 import project.MenuItem;
-import project.Model;
+import project.Bill;
 import project.TaxManager;
 
 public class TaxManagerTest {
-	Model model;
+	Bill bill;
 	TaxManager taxMan;
 	BillMenuItem bItem;
 	MenuItem cheapBurger = new MenuItem(1, "Cheap Burger", 2.00, "Burger to test tax calculations under $4", "TestItems");
@@ -19,12 +19,12 @@ public class TaxManagerTest {
 	//test for bill under $4, for 5% tax.
 	@Test
 	public void reducedTaxOneItem() {
-		model = new Model();
+		bill = new Bill();
 		bItem = new BillMenuItem(cheapBurger);
-		model.addBillMenuItem(bItem);
-		taxMan = model.getTaxManager();
+		bill.addBillMenuItem(bItem);
+		taxMan = bill.getTaxManager();
 		
-		assertTrue("Cheap Burger not added to Bill.", model.doesBillHaveMenuItem(cheapBurger));
+		assertTrue("Cheap Burger not added to Bill.", bill.doesBillHaveMenuItem(cheapBurger));
 		
 		double cheapBurgerPrice = cheapBurger.getPrice();
 		double subtotal = taxMan.getSubtotal();
@@ -36,15 +36,15 @@ public class TaxManagerTest {
 	//test for bill under $4, with multiple items
 	@Test
 	public void reducedTaxMultipleItems(){
-		model = new Model();
+		bill = new Bill();
 		bItem = new BillMenuItem(cheapBurger);
-		model.addBillMenuItem(bItem);
+		bill.addBillMenuItem(bItem);
 		bItem = new BillMenuItem(cheapPop);
-		model.addBillMenuItem(bItem);
-		taxMan = model.getTaxManager();
+		bill.addBillMenuItem(bItem);
+		taxMan = bill.getTaxManager();
 		
-		assertTrue("Cheap Burger not added to Bill.", model.doesBillHaveMenuItem(cheapBurger));
-		assertTrue("Cheap Pop not added to Bill.", model.doesBillHaveMenuItem(cheapPop));
+		assertTrue("Cheap Burger not added to Bill.", bill.doesBillHaveMenuItem(cheapBurger));
+		assertTrue("Cheap Pop not added to Bill.", bill.doesBillHaveMenuItem(cheapPop));
 		
 		double cheapBurgerPrice = cheapBurger.getPrice();
 		double cheapPopPrice = cheapPop.getPrice();
@@ -58,13 +58,13 @@ public class TaxManagerTest {
 	//test for bill exactly $4
 	@Test
 	public void reducedTax(){
-		model = new Model();
+		bill = new Bill();
 		bItem = new BillMenuItem(cheapBurger);
 		bItem.plusQuantity();
-		model.addBillMenuItem(bItem);
-		taxMan = model.getTaxManager();
+		bill.addBillMenuItem(bItem);
+		taxMan = bill.getTaxManager();
 		
-		assertTrue("Cheap Burger not added to Bill.", model.doesBillHaveMenuItem(cheapBurger));
+		assertTrue("Cheap Burger not added to Bill.", bill.doesBillHaveMenuItem(cheapBurger));
 
 		double cheapBurgerPrice = cheapBurger.getPrice();
 		double sub = cheapBurgerPrice * 2;
@@ -77,12 +77,12 @@ public class TaxManagerTest {
 	//test for bill over $4 with one item
 	@Test
 	public void bigTaxOneItem(){
-		model = new Model();
+		bill = new Bill();
 		bItem = new BillMenuItem(expensiveBurger);
-		model.addBillMenuItem(bItem);
-		taxMan = model.getTaxManager();
+		bill.addBillMenuItem(bItem);
+		taxMan = bill.getTaxManager();
 		
-		assertTrue("Expensive Burger not added to Bill.", model.doesBillHaveMenuItem(expensiveBurger));
+		assertTrue("Expensive Burger not added to Bill.", bill.doesBillHaveMenuItem(expensiveBurger));
 		
 		double expensiveBurgerPrice = expensiveBurger.getPrice();
 		
@@ -95,18 +95,18 @@ public class TaxManagerTest {
 	//test for bill over $4 with one item
 	@Test
 	public void bigTaxMultipleItems(){
-		model = new Model();
+		bill = new Bill();
 		bItem = new BillMenuItem(expensiveBurger);
-		model.addBillMenuItem(bItem);
+		bill.addBillMenuItem(bItem);
 		bItem = new BillMenuItem(cheapBurger);
-		model.addBillMenuItem(bItem);
+		bill.addBillMenuItem(bItem);
 		bItem = new BillMenuItem(cheapPop);
-		model.addBillMenuItem(bItem);
-		taxMan = model.getTaxManager();
+		bill.addBillMenuItem(bItem);
+		taxMan = bill.getTaxManager();
 		
-		assertTrue("Expensive Burger not added to Bill.", model.doesBillHaveMenuItem(expensiveBurger));
-		assertTrue("Cheap Burger not added to Bill.", model.doesBillHaveMenuItem(cheapBurger));
-		assertTrue("Cheap Pop not added to Bill.", model.doesBillHaveMenuItem(cheapPop));
+		assertTrue("Expensive Burger not added to Bill.", bill.doesBillHaveMenuItem(expensiveBurger));
+		assertTrue("Cheap Burger not added to Bill.", bill.doesBillHaveMenuItem(cheapBurger));
+		assertTrue("Cheap Pop not added to Bill.", bill.doesBillHaveMenuItem(cheapPop));
 
 		double expensiveBurgerPrice = expensiveBurger.getPrice();
 		double cheapBurgerPrice = cheapBurger.getPrice();
