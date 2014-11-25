@@ -74,7 +74,7 @@ public class DatabaseManager {
       return;
     }
     Tip tip = bill.getTip();
-    double total = bill.getTotalWithTip();
+    double total = bill.getTotalWithoutTip();
     int tipType = tip.getTipType().ordinal();
     double tipAmount = tip.getTipAmount();
     double tipPercent = tip.getTipPercent();

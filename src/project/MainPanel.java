@@ -142,7 +142,7 @@ public class MainPanel extends javax.swing.JPanel {
             .addGap(144, 144, 144)
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addGap(18, 18, 18)
-        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
           .addComponent(newBillButton)
           .addComponent(loadBillButton))
         .addContainerGap(123, Short.MAX_VALUE))
