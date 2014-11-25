@@ -153,6 +153,13 @@ public class MainFrame extends javax.swing.JFrame implements Observer {
     }
   }
   
+  public void closeCurrentBill() {
+    bills.remove(currentBillIndex);
+    currentBillIndex = -1;
+    resetMainPanelList();
+    showMainPanel();
+  }
+  
   public void resetMainPanelList() {
     mainPanel1.revalidateBillsList();
   }

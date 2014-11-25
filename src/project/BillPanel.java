@@ -81,6 +81,7 @@ public class BillPanel extends javax.swing.JPanel {
     descriptionLabel = new javax.swing.JLabel();
     jScrollPane5 = new javax.swing.JScrollPane();
     descriptionTextPane = new javax.swing.JTextPane();
+    closeBillButton = new javax.swing.JButton();
 
     jTextArea1.setColumns(20);
     jTextArea1.setRows(5);
@@ -364,6 +365,13 @@ public class BillPanel extends javax.swing.JPanel {
         .addContainerGap())
     );
 
+    closeBillButton.setText("Close Bill");
+    closeBillButton.addActionListener(new java.awt.event.ActionListener() {
+      public void actionPerformed(java.awt.event.ActionEvent evt) {
+        closeBillButtonActionPerformed(evt);
+      }
+    });
+
     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
     this.setLayout(layout);
     layout.setHorizontalGroup(
@@ -380,6 +388,8 @@ public class BillPanel extends javax.swing.JPanel {
                 .addGap(12, 12, 12)
                 .addComponent(backButton)
                 .addGap(18, 18, 18)
+                .addComponent(closeBillButton)
+                .addGap(18, 18, 18)
                 .addComponent(viewReceiptButton))
               .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -388,9 +398,9 @@ public class BillPanel extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                   .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                  .addComponent(tipPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addComponent(billItemsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                  .addComponent(tipPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+            .addGap(18, 18, 18)
+            .addComponent(billItemsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
@@ -412,6 +422,7 @@ public class BillPanel extends javax.swing.JPanel {
         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
           .addComponent(backButton)
+          .addComponent(closeBillButton)
           .addComponent(viewReceiptButton))
         .addContainerGap(92, Short.MAX_VALUE))
     );
@@ -500,6 +511,10 @@ public class BillPanel extends javax.swing.JPanel {
       this.updateTipAmount(0);
     }
   }//GEN-LAST:event_tipAmountTextFieldFocusLost
+
+  private void closeBillButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeBillButtonActionPerformed
+    mainFrame.closeCurrentBill();
+  }//GEN-LAST:event_closeBillButtonActionPerformed
 
   private void revalidateCategoriesList() {
     categoriesList.invalidate();
@@ -613,6 +628,7 @@ public class BillPanel extends javax.swing.JPanel {
   private javax.swing.JList categoriesList;
   private javax.swing.JPanel categoriesPanel;
   private javax.swing.JLabel categoryLabel;
+  private javax.swing.JButton closeBillButton;
   private javax.swing.JLabel descriptionLabel;
   private javax.swing.JTextPane descriptionTextPane;
   private javax.swing.JButton increaseQuantityButton;
