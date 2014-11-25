@@ -28,11 +28,6 @@ CREATE TABLE BILLS_ITEMS
   QUANTITY INT
 );
 
-INSERT INTO ITEMS VALUES (DEFAULT, 'Pizza', 10.99, 'It\'s Pretty Good', 'Entree');
-INSERT INTO ITEMS VALUES (DEFAULT, 'Burger', 9.99, 'It\'s Really Good', 'Entree');
-INSERT INTO ITEMS VALUES (DEFAULT, 'Brownie', 5.99, 'It\'s So Good', 'Dessert');
-INSERT INTO ITEMS VALUES (DEFAULT, 'Garlic Bread With Cheese', 5.99, 'It\'s the Best', 'Appetizer');
-
 INSERT INTO ITEMS VALUES (DEFAULT, 'Single 4oz. Patty', 4.15, 'description', 'Original Hamburgers');
 INSERT INTO ITEMS VALUES (DEFAULT, 'Double 4oz. Patty', 5.65, 'description', 'Original Hamburgers');
 INSERT INTO ITEMS VALUES (DEFAULT, 'Cheeseburger', 4.69, 'description', 'Original Hamburgers');
