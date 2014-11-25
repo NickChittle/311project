@@ -14,11 +14,25 @@ public class Bill extends AbstractTableModel {
   private ArrayList<BillMenuItem> billMenuItems;
   private TaxManager taxManager;
   private Tip tip;
+  private Integer dbBillID = null;
 
   public Bill() {
     billMenuItems = new ArrayList<BillMenuItem>();
     this.taxManager = new TaxManager(this);
     tip = new Tip();
+  }
+  
+  public Bill(int dbBillID) {
+    this();
+    this.dbBillID = dbBillID;
+  }
+  
+  public boolean isLoadedBill() {
+    return dbBillID != null;
+  }
+  
+  public int getBillID() {
+    return dbBillID;
   }
   
   public Tip getTip() {

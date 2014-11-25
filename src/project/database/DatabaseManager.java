@@ -54,7 +54,6 @@ public class DatabaseManager {
       }
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.toString());
-    } finally {
     }
     return items;
   }
@@ -73,6 +72,53 @@ public class DatabaseManager {
     if (IS_TEST_DB) {
       return;
     }
+    
+    int billId;
+    if (bill.isLoadedBill()) {
+      billId = bill.getBillID();
+      updateBillInDB(bill);
+    }else {
+      billId = createBillInDB(bill);
+    }
+    if (billId < 0) {
+      System.out.println("Could not get proper billId");
+      return;
+    }
+    try {
+      for (BillMenuItem item : bill.getBillMenuItems()) {
+        int itemId = item.getMenuItem().getId();
+        int quantity = item.getQuantity();
+        Statement s = conn.createStatement();
+        String q = "INSERT INTO BILLS_ITEMS VALUES(" + billId + ", " + itemId + ", " + quantity + ")";
+        s.executeUpdate(q);
+      }
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.toString());
+    }
+  }
+  
+  private void updateBillInDB(Bill bill) {
+    if (!bill.isLoadedBill()) {
+      return;
+    }
+    Tip tip = bill.getTip();
+    double total = bill.getTotalWithoutTip();
+    int tipType = tip.getTipType().ordinal();
+    double tipAmount = tip.getTipAmount();
+    double tipPercent = tip.getTipPercent();
+    int billId = bill.getBillID();
+    try {
+      Statement s = conn.createStatement();
+      String q = "DELETE FROM BILLS_ITEMS WHERE BILL_ID=" + billId;
+      s.executeUpdate(q);
+      q = String.format("UPDATE BILLS SET TOTAL=%f, TIP_TYPE=%d, TIP_AMOUNT=%f, TIP_PERCENT=%f WHERE ID=%d", total, tipType, tipAmount, tipPercent, billId);
+      s.executeUpdate(q);
+    } catch (SQLException e) {
+      System.out.println("SQLException: " + e.toString());
+    }
+  }
+  
+  public int createBillInDB(Bill bill) {
     Tip tip = bill.getTip();
     double total = bill.getTotalWithoutTip();
     int tipType = tip.getTipType().ordinal();
@@ -83,24 +129,16 @@ public class DatabaseManager {
       Statement stmt = conn.createStatement();
       stmt.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
       ResultSet rs = stmt.getGeneratedKeys();
-      int billId;
       if (rs.next()) {
-        billId = rs.getInt(1);
+        return rs.getInt(1);
       } else {
         System.out.println("Could not get key from inserted Bill");
-        return;
-      }
-      for (BillMenuItem item : bill.getBillMenuItems()) {
-        int itemId = item.getMenuItem().getId();
-        int quantity = item.getQuantity();
-        Statement s = conn.createStatement();
-        String q = "INSERT INTO BILLS_ITEMS VALUES(" + billId + ", " + itemId + ", " + quantity + ")";
-        s.executeUpdate(q);
+        return -1;
       }
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.toString());
-    } finally {
     }
+    return -1;
   }
 
   /**
@@ -110,7 +148,7 @@ public class DatabaseManager {
     if (IS_TEST_DB) {
       return new Bill();
     }
-    Bill bill = new Bill();
+    Bill bill = new Bill(dbBill.getId());
     bill.setTip(dbBill.getTip());
     String query = "SELECT ITEM_ID, QUANTITY FROM BILLS_ITEMS WHERE BILL_ID=" + dbBill.getId();
     try {
@@ -162,7 +200,6 @@ public class DatabaseManager {
       }
     } catch (SQLException e) {
       System.out.println("SQLException: " + e.toString());
-    } finally {
     }
     return billIds;
   }
