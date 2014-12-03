@@ -79,8 +79,8 @@ public class BillPanel extends javax.swing.JPanel {
     jLabel1 = new javax.swing.JLabel();
     jPanel1 = new javax.swing.JPanel();
     descriptionLabel = new javax.swing.JLabel();
-    jScrollPane5 = new javax.swing.JScrollPane();
-    descriptionTextPane = new javax.swing.JTextPane();
+    jScrollPane6 = new javax.swing.JScrollPane();
+    descriptionTextArea = new javax.swing.JTextArea();
     closeBillButton = new javax.swing.JButton();
 
     jTextArea1.setColumns(20);
@@ -107,6 +107,7 @@ public class BillPanel extends javax.swing.JPanel {
     });
 
     billItemsPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+    billItemsPanel.setName(""); // NOI18N
 
     billItemsLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
     billItemsLabel.setText("Bill Items");
@@ -132,20 +133,22 @@ public class BillPanel extends javax.swing.JPanel {
     billItemsPanel.setLayout(billItemsPanelLayout);
     billItemsPanelLayout.setHorizontalGroup(
       billItemsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, billItemsPanelLayout.createSequentialGroup()
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        .addComponent(billItemsLabel)
-        .addGap(107, 107, 107))
-      .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, billItemsPanelLayout.createSequentialGroup()
-        .addGap(24, 24, 24)
-        .addComponent(minusQuantityButton)
-        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 82, Short.MAX_VALUE)
-        .addComponent(increaseQuantityButton)
-        .addGap(24, 24, 24))
       .addGroup(billItemsPanelLayout.createSequentialGroup()
         .addContainerGap()
-        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-        .addContainerGap())
+        .addGroup(billItemsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+          .addGroup(billItemsPanelLayout.createSequentialGroup()
+            .addGap(0, 0, Short.MAX_VALUE)
+            .addComponent(billItemsLabel)
+            .addGap(104, 104, 104))
+          .addGroup(billItemsPanelLayout.createSequentialGroup()
+            .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 263, Short.MAX_VALUE)
+            .addContainerGap())
+          .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, billItemsPanelLayout.createSequentialGroup()
+            .addGap(12, 12, 12)
+            .addComponent(minusQuantityButton)
+            .addGap(18, 18, 18)
+            .addComponent(increaseQuantityButton)
+            .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
     );
     billItemsPanelLayout.setVerticalGroup(
       billItemsPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -306,13 +309,13 @@ public class BillPanel extends javax.swing.JPanel {
               .addComponent(tipButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
               .addComponent(tipButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
           .addGroup(tipPanelLayout.createSequentialGroup()
-            .addGap(50, 50, 50)
-            .addComponent(tipLabel))
-          .addGroup(tipPanelLayout.createSequentialGroup()
             .addGap(28, 28, 28)
             .addComponent(jLabel1)
             .addGap(4, 4, 4)
-            .addComponent(tipAmountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)))
+            .addComponent(tipAmountTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE))
+          .addGroup(tipPanelLayout.createSequentialGroup()
+            .addGap(62, 62, 62)
+            .addComponent(tipLabel)))
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
     );
     tipPanelLayout.setVerticalGroup(
@@ -340,28 +343,31 @@ public class BillPanel extends javax.swing.JPanel {
     descriptionLabel.setFont(new java.awt.Font("Ubuntu", 1, 15)); // NOI18N
     descriptionLabel.setText("Description");
 
-    jScrollPane5.setViewportView(descriptionTextPane);
+    descriptionTextArea.setColumns(20);
+    descriptionTextArea.setLineWrap(true);
+    descriptionTextArea.setRows(5);
+    jScrollPane6.setViewportView(descriptionTextArea);
 
     javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
     jPanel1.setLayout(jPanel1Layout);
     jPanel1Layout.setHorizontalGroup(
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanel1Layout.createSequentialGroup()
-        .addContainerGap()
-        .addComponent(jScrollPane5)
-        .addContainerGap())
-      .addGroup(jPanel1Layout.createSequentialGroup()
         .addGap(33, 33, 33)
         .addComponent(descriptionLabel)
         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+      .addGroup(jPanel1Layout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+        .addContainerGap())
     );
     jPanel1Layout.setVerticalGroup(
       jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
       .addGroup(jPanel1Layout.createSequentialGroup()
         .addContainerGap()
         .addComponent(descriptionLabel)
-        .addGap(12, 12, 12)
-        .addComponent(jScrollPane5, javax.swing.GroupLayout.DEFAULT_SIZE, 113, Short.MAX_VALUE)
+        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+        .addComponent(jScrollPane6, javax.swing.GroupLayout.PREFERRED_SIZE, 119, javax.swing.GroupLayout.PREFERRED_SIZE)
         .addContainerGap())
     );
 
@@ -401,7 +407,7 @@ public class BillPanel extends javax.swing.JPanel {
                   .addComponent(tipPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGap(18, 18, 18)
             .addComponent(billItemsPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        .addContainerGap(20, Short.MAX_VALUE))
     );
     layout.setVerticalGroup(
       layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -493,7 +499,7 @@ public class BillPanel extends javax.swing.JPanel {
     int index = menuItemsList.getSelectedIndex();
     if (index != -1) {
       MenuItem item = menuItemsListModel.getElementAt(index);
-      descriptionTextPane.setText(item.getDescription());
+      this.descriptionTextArea.setText(item.getDescription());
       if (evt.getClickCount() == 2) {
         addMenuItem(item);
       }
@@ -630,7 +636,7 @@ public class BillPanel extends javax.swing.JPanel {
   private javax.swing.JLabel categoryLabel;
   private javax.swing.JButton closeBillButton;
   private javax.swing.JLabel descriptionLabel;
-  private javax.swing.JTextPane descriptionTextPane;
+  private javax.swing.JTextArea descriptionTextArea;
   private javax.swing.JButton increaseQuantityButton;
   private javax.swing.JLabel jLabel1;
   private javax.swing.JPanel jPanel1;
@@ -638,7 +644,7 @@ public class BillPanel extends javax.swing.JPanel {
   private javax.swing.JScrollPane jScrollPane2;
   private javax.swing.JScrollPane jScrollPane3;
   private javax.swing.JScrollPane jScrollPane4;
-  private javax.swing.JScrollPane jScrollPane5;
+  private javax.swing.JScrollPane jScrollPane6;
   private javax.swing.JTextArea jTextArea1;
   private javax.swing.JLabel menuItemsLabel;
   private javax.swing.JList menuItemsList;
